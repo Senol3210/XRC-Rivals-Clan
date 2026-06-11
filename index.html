@@ -38,29 +38,13 @@
         .profile { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
         .join-btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #222; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; }
     
-        body.light-mode{
-            color:#111;
-            background: radial-gradient(circle at center, #ffffff, #e8e8e8, #dcdcdc);
-        }
-        body.light-mode .navbar{
-            background:rgba(255,255,255,0.9);
-            border-bottom:1px solid #ccc;
-        }
-        body.light-mode .navbar a,
-        body.light-mode .navbar span{
-            color:#111;
-        }
-        body.light-mode .section{
-            background:#ffffff;
-            border:1px solid #ccc;
-        }
-        body.light-mode .join-btn{
-            background:#e0e0e0;
-            color:#111;
-        }
-        body.light-mode .badge{
-            background:#f0f0f0;
-        }
+        body.light-mode { color: #111; background: radial-gradient(circle at center, #ffffff, #e8e8e8, #dcdcdc); }
+        body.light-mode .navbar { background: rgba(255,255,255,0.9); border-bottom: 1px solid #ccc; }
+        body.light-mode .navbar a, body.light-mode .navbar span { color: #111; }
+        body.light-mode .section { background: #ffffff; border: 1px solid #ccc; }
+        body.light-mode .join-btn { background: #e0e0e0; color: #111; }
+        body.light-mode .badge { background: #f0f0f0; }
+        body.light-mode #annText { background: #eee !important; color: #111 !important; }
     </style>
 </head>
 <body>
@@ -77,8 +61,8 @@
         <option value="de">Deutsch</option>
     </select>
     <select onchange="changeTheme(this.value)" style="background:#222; color:white; border:none; padding:5px; border-radius:5px; cursor:pointer;">
-        <option value="dark">Dark</option>
-        <option value="light">Light</option>
+        <option value="dark" id="optDark">Dark</option>
+        <option value="light" id="optLight">Light</option>
     </select>
 </nav>
 
@@ -107,7 +91,7 @@
     <div class="section" id="announcements">
         <h2 id="annTitle">Announcements</h2>
         <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">
-            🚀 v0.02 Update<br>✅ Logo refined and moved<br>✅ Improved mobile layout
+            🚀 v0.03 Update<br>✅ Logo refined and moved<br>✅ Improved mobile layout
         </div>
     </div>
 </div>
@@ -119,18 +103,19 @@ fetch('https://discord.com/api/guilds/1513976181056082061/widget.json')
     .catch(() => { document.getElementById('navActive').innerText = 'Active: -'; });
 
 const translations = {
-    en: { navHome: "Home", navDev: "Developers", navAnn: "Announcements", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.02 Update<br>✅ Logo refined and moved<br>✅ Improved mobile layout" },
-    tr: { navHome: "Ana Sayfa", navDev: "Geliştiriciler", navAnn: "Duyurular", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.02 Güncellemesi<br>✅ Logo düzenlendi<br>✅ Mobil uyum iyileştirildi" },
-    fr: { navHome: "Accueil", navDev: "Développeurs", navAnn: "Annonces", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.02<br>✅ Logo raffiné<br>✅ Mise en page optimisée" },
-    de: { navHome: "Startseite", navDev: "Entwickler", navAnn: "Ankündigungen", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.02 Update<br>✅ Logo verfeinert<br>✅ Layout optimiert" }
+    en: { navHome: "Home", navDev: "Developers", navAnn: "Announcements", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.03 Update<br>✅ Logo refined and moved<br>✅ Improved mobile layout", optDark: "Dark", optLight: "Light" },
+    tr: { navHome: "Ana Sayfa", navDev: "Geliştiriciler", navAnn: "Duyurular", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.03 Güncellemesi<br>✅ Logo düzenlendi<br>✅ Mobil uyum iyileştirildi", optDark: "Koyu", optLight: "Açık" },
+    fr: { navHome: "Accueil", navDev: "Développeurs", navAnn: "Annonces", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.03<br>✅ Logo raffiné<br>✅ Mise en page optimisée", optDark: "Sombre", optLight: "Clair" },
+    de: { navHome: "Startseite", navDev: "Entwickler", navAnn: "Ankündigungen", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.03 Update<br>✅ Logo verfeinert<br>✅ Layout optimiert", optDark: "Dunkel", optLight: "Hell" }
 };
+
 function changeLang(lang) { 
     const t = translations[lang]; 
     for (let id in t) {
         if (id === 'navActive') {
             const activeVal = document.getElementById('navActive').innerText.split(': ')[1];
             document.getElementById('navActive').innerText = t[id] + ': ' + activeVal;
-        } else {
+        } else if (document.getElementById(id)) {
             document.getElementById(id).innerHTML = t[id]; 
         }
     }
