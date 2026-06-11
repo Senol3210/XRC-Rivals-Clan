@@ -5,26 +5,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XRC | Rivals Clan</title>
     <style>
-        :root { 
-            --bg-body: #050505; --bg-grad: radial-gradient(circle at center, #2f2f2f, #111, #050505);
-            --accent: #71ff9b; --text: white; --nav-bg: rgba(11, 11, 11, 0.9); --sec-bg: #0f0f0f;
-        }
-        .light-mode { 
-            --bg-body: #f0f0f0; --bg-grad: radial-gradient(circle at center, #dcdcdc, #ffffff, #f0f0f0);
-            --accent: #007bff; --text: #222; --nav-bg: rgba(255, 255, 255, 0.9); --sec-bg: #e0e0e0;
+        :root { --bg-dark: #050505; --accent-green: #71ff9b; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            color: white;
+            background: radial-gradient(circle at center, #2f2f2f, #111, #050505);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite, fadeIn 1s ease forwards;
+            opacity: 0;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; transition: all 0.3s ease; }
-        body { font-family: 'Segoe UI', Arial, sans-serif; color: var(--text); background: var(--bg-grad); min-height: 100vh; background-attachment: fixed; }
-        
-        .navbar { position: fixed; top: 0; width: 100%; background: var(--nav-bg); border-bottom: 1px solid #222; display: flex; justify-content: center; align-items: center; gap: 20px; padding: 18px; z-index: 1000; backdrop-filter: blur(5px); }
-        .navbar a, .navbar span, .navbar select, .navbar button { color: var(--text); font-weight: bold; cursor: pointer; background: transparent; border: none; }
-        
-        .container { max-width: 900px; margin: 80px auto 0; padding: 50px 20px; text-align: center; }
-        .logo { width: 180px; height: 180px; border-radius: 30px; border: 2px solid #333; }
-        .badge { display: inline-block; padding: 8px 18px; border-radius: 50px; background: #111; color: var(--accent); border: 1px solid var(--accent); margin: 20px 0; }
-        .section { background: var(--sec-bg); padding: 40px; border-radius: 20px; margin-top: 50px; border: 1px solid #222; }
-        .join-btn { display: inline-block; padding: 15px 30px; background: var(--accent); border-radius: 10px; color: black; text-decoration: none; font-weight: bold; }
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(113, 255, 155, 0); } 100% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0); } }
+
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(11, 11, 11, 0.9); border-bottom: 1px solid #222; display: flex; justify-content: center; align-items: center; gap: 20px; padding: 18px; z-index: 1000; }
+        .navbar a, .navbar span { color: #ddd; text-decoration: none; font-weight: bold; position: relative; transition: 0.3s; }
+        .navbar a::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--accent-green); transition: 0.3s; }
+        .navbar a:hover::after { width: 100%; }
+
+        .container { max-width: 900px; margin: auto; padding: 150px 20px; text-align: center; }
+        .logo-wrapper { margin-bottom: 20px; }
+        .logo { width: 180px; height: 180px; border-radius: 30px; animation: float 3s ease-in-out infinite; border: 2px solid #333; object-fit: cover; }
+        .badge { display: inline-block; padding: 8px 18px; border-radius: 50px; background: #111; color: var(--accent-green); animation: pulse 2s infinite; font-weight: bold; font-size: 0.9em; border: 1px solid #222; }
+
+        .section { background: #0f0f0f; padding: 40px; border-radius: 20px; margin-top: 50px; border: 1px solid #222; }
+        .profile-card { display: inline-block; padding: 20px; border-radius: 20px; transition: 0.3s; border: 1px solid transparent; }
+        .profile-card:hover { border-color: var(--accent-green); box-shadow: 0 0 20px rgba(113, 255, 155, 0.2); }
+        .profile { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
+        .join-btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #222; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; }
+    
+        body.light-mode{
+            color:#111;
+            background: radial-gradient(circle at center, #ffffff, #e8e8e8, #dcdcdc);
+        }
+        body.light-mode .navbar{
+            background:rgba(255,255,255,0.9);
+            border-bottom:1px solid #ccc;
+        }
+        body.light-mode .navbar a,
+        body.light-mode .navbar span{
+            color:#111;
+        }
+        body.light-mode .section{
+            background:#ffffff;
+            border:1px solid #ccc;
+        }
+        body.light-mode .join-btn{
+            background:#e0e0e0;
+            color:#111;
+        }
+        body.light-mode .badge{
+            background:#f0f0f0;
+        }
     </style>
 </head>
 <body>
@@ -33,31 +69,45 @@
     <a href="#home" id="navHome">Home</a>
     <a href="#developers" id="navDev">Developers</a>
     <a href="#announcements" id="navAnn">Announcements</a>
-    <span id="navActive" style="color:var(--accent)">Active: Loading...</span>
-    <select onchange="changeLang(this.value)" style="background:#222; color:white; padding:5px; border-radius:5px;">
+    <span id="navActive" style="color:var(--accent-green)">Active: Loading...</span>
+    <select onchange="changeLang(this.value)" style="background:#222; color:white; border:none; padding:5px; border-radius:5px; cursor:pointer;">
         <option value="en">English</option>
         <option value="tr">Türkçe</option>
         <option value="fr">Français</option>
         <option value="de">Deutsch</option>
     </select>
-    <button onclick="document.body.classList.toggle('light-mode')" style="padding:5px 10px; background:#222; color:white; border-radius:5px;">Theme</button>
+    <select onchange="changeTheme(this.value)" style="background:#222; color:white; border:none; padding:5px; border-radius:5px; cursor:pointer;">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+    </select>
 </nav>
 
-<div class="container">
-    <img src="logo.png" class="logo">
+<div class="container" id="home">
+    <div class="logo-wrapper">
+        <img src="logo.png" class="logo" alt="Logo">
+    </div>
     <div class="badge" id="recruiting">🟢 Recruiting Now</div>
-    <h1 id="title">XRC | Rivals Clan</h1>
+    
+    <h1 id="title" style="margin-top: 20px;">XRC | Rivals Clan</h1>
+    <p id="subtitle" style="color: #888;">Official Rivals Clan Community</p>
+    <p id="desc" style="margin: 30px 0; line-height: 1.6;">Join XRC and become part of our growing Rivals community.</p>
     <a href="https://discord.gg/2dE9NAVHeb" target="_blank" class="join-btn" id="joinBtn">Join Discord</a>
 
     <div class="section" id="developers">
         <h2 id="devTitle">Developers</h2>
-        <div style="margin-top:20px;">Senol3210</div>
+        <div class="profile-card">
+            <a href="https://www.roblox.com/users/1321103668/profile" target="_blank">
+                <img src="profile.png" class="profile">
+            </a>
+            <div style="font-size:24px; font-weight:bold; margin-top:10px;">Senol3210</div>
+            <div id="ownerRole" style="color: #888;">Owner & Founder</div>
+        </div>
     </div>
 
     <div class="section" id="announcements">
         <h2 id="annTitle">Announcements</h2>
-        <div id="annText" style="margin-top:20px; text-align:left; background:rgba(0,0,0,0.1); padding:20px; border-radius:10px;">
-            🚀 v0.03 Update<br>✅ Light mode & Theme switcher integrated
+        <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">
+            🚀 v0.02 Update<br>✅ Logo refined and moved<br>✅ Improved mobile layout
         </div>
     </div>
 </div>
@@ -65,15 +115,33 @@
 <script>
 fetch('https://discord.com/api/guilds/1513976181056082061/widget.json')
     .then(response => response.json())
-    .then(data => { document.getElementById('navActive').innerText = 'Active: ' + data.presence_count; });
+    .then(data => { document.getElementById('navActive').innerText = 'Active: ' + data.presence_count; })
+    .catch(() => { document.getElementById('navActive').innerText = 'Active: -'; });
 
 const translations = {
-    en: { navHome: "Home", navDev: "Developers", navAnn: "Announcements", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", joinBtn: "Join Discord", devTitle: "Developers", annTitle: "Announcements" },
-    tr: { navHome: "Ana Sayfa", navDev: "Geliştiriciler", navAnn: "Duyurular", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", annTitle: "Duyurular" }
+    en: { navHome: "Home", navDev: "Developers", navAnn: "Announcements", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.02 Update<br>✅ Logo refined and moved<br>✅ Improved mobile layout" },
+    tr: { navHome: "Ana Sayfa", navDev: "Geliştiriciler", navAnn: "Duyurular", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.02 Güncellemesi<br>✅ Logo düzenlendi<br>✅ Mobil uyum iyileştirildi" },
+    fr: { navHome: "Accueil", navDev: "Développeurs", navAnn: "Annonces", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.02<br>✅ Logo raffiné<br>✅ Mise en page optimisée" },
+    de: { navHome: "Startseite", navDev: "Entwickler", navAnn: "Ankündigungen", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.02 Update<br>✅ Logo verfeinert<br>✅ Layout optimiert" }
 };
-function changeLang(lang) {
-    const t = translations[lang] || translations['en'];
-    for (let id in t) if(document.getElementById(id)) document.getElementById(id).innerHTML = (id === 'navActive') ? t[id] + ': ' + document.getElementById('navActive').innerText.split(': ')[1] : t[id];
+function changeLang(lang) { 
+    const t = translations[lang]; 
+    for (let id in t) {
+        if (id === 'navActive') {
+            const activeVal = document.getElementById('navActive').innerText.split(': ')[1];
+            document.getElementById('navActive').innerText = t[id] + ': ' + activeVal;
+        } else {
+            document.getElementById(id).innerHTML = t[id]; 
+        }
+    }
+}
+
+function changeTheme(theme){
+    if(theme === 'light'){
+        document.body.classList.add('light-mode');
+    }else{
+        document.body.classList.remove('light-mode');
+    }
 }
 </script>
 </body>
