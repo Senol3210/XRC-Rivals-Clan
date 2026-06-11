@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XRC | Rivals Clan</title>
     <style>
-        :root { --bg-dark: #050505; --accent-green: #71ff9b; }
+        :root { --bg-dark: #050505; --accent-green: #71ff9b; --accent-blue: #007bff; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -36,15 +36,18 @@
         .profile-card { display: inline-block; padding: 20px; border-radius: 20px; transition: 0.3s; border: 1px solid transparent; }
         .profile-card:hover { border-color: var(--accent-green); box-shadow: 0 0 20px rgba(113, 255, 155, 0.2); }
         .profile { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
-        .join-btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #222; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; }
+        
+        .join-btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #222; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        .join-btn:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); transform: scale(1.05); }
     
         body.light-mode { color: #111; background: radial-gradient(circle at center, #ffffff, #e8e8e8, #dcdcdc); }
         body.light-mode .navbar { background: rgba(255,255,255,0.9); border-bottom: 1px solid #ccc; }
         body.light-mode .navbar a, body.light-mode .navbar span { color: #111; }
         body.light-mode .section { background: #ffffff; border: 1px solid #ccc; }
-        body.light-mode .join-btn { background: #e0e0e0; color: #111; }
-        body.light-mode .badge { background: #f0f0f0; }
+        body.light-mode .join-btn { background: #222; color: #fff; }
+        body.light-mode .badge { background: #f0f0f0; color: var(--accent-blue); border-color: var(--accent-blue); }
         body.light-mode #annText, body.light-mode #aboutText { background: #eee !important; color: #111 !important; }
+        body.light-mode #navActive { color: var(--accent-blue) !important; }
     </style>
 </head>
 <body>
@@ -92,7 +95,7 @@
     <div class="section" id="announcements">
         <h2 id="annTitle">Announcements</h2>
         <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">
-            🚀 v0.04 Update<br>✅ Added About Us section<br>✅ Added Copyright<br>✅ Refined theme & active count
+            🚀 v0.04 Update<br>✅ Added About Us section<br>✅ Refined theme & active count
         </div>
     </div>
 
@@ -117,10 +120,10 @@ fetch('https://discord.com/api/guilds/1513976181056082061/widget.json')
     .catch(() => { document.getElementById('navActive').innerText = 'Active: -'; });
 
 const translations = {
-    en: { navHome: "Home", navDev: "Developers", navAnn: "Announcements", navAbout: "About Us", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.04 Update<br>✅ Added About Us section<br>✅ Added Copyright<br>✅ Refined theme & active count", aboutTitle: "About Us", aboutText: "XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.", optDark: "Dark", optLight: "Light" },
-    tr: { navHome: "Ana Sayfa", navDev: "Geliştiriciler", navAnn: "Duyurular", navAbout: "Hakkımızda", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.04 Güncellemesi<br>✅ Hakkımızda bölümü eklendi<br>✅ Telif hakkı eklendi<br>✅ Tema ve aktif sayı iyileştirildi", aboutTitle: "Hakkımızda", aboutText: "XRC, takım çalışmasına, aktiviteye ve gelişime odaklanmış rekabetçi bir Rivals klanıdır.<br><br>Amacımız, oyuncuların birlikte gelişebileceği, klan etkinliklerine katılabileceği ve XRC'yi gururla temsil edebileceği arkadaş canlısı ama yetenekli bir topluluk oluşturmaktır.<br><br>2026 yılında kuruldu.", optDark: "Koyu", optLight: "Açık" },
-    fr: { navHome: "Accueil", navDev: "Développeurs", navAnn: "Annonces", navAbout: "À Propos", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.04<br>✅ Section À Propos ajoutée<br>✅ Copyright ajouté<br>✅ Thème et actif optimisés", aboutTitle: "À Propos", aboutText: "XRC est un clan Rivals compétitif axé sur le travail d'équipe, l'activité et l'amélioration.<br><br>Notre objectif est de bâtir une communauté amicale mais qualifiée où les joueurs peuvent s'améliorer ensemble, participer à des événements de clan et représenter XRC avec fierté.<br><br>Fondé en 2026.", optDark: "Sombre", optLight: "Clair" },
-    de: { navHome: "Startseite", navDev: "Entwickler", navAnn: "Ankündigungen", navAbout: "Über Uns", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.04 Update<br>✅ Über Uns hinzugefügt<br>✅ Copyright hinzugefügt<br>✅ Theme & Aktiv-Zähler verfeinert", aboutTitle: "Über Uns", aboutText: "XRC ist ein kompetitiver Rivals-Clan, der sich auf Teamwork, Aktivität und Verbesserung konzentriert.<br><br>Unser Ziel ist es, eine freundliche, aber qualifizierte Community aufzubauen, in der sich Spieler gemeinsam verbessern, an Clan-Events teilnehmen und XRC mit Stolz repräsentieren können.<br><br>Gegründet im Jahr 2026.", optDark: "Dunkel", optLight: "Hell" }
+    en: { navHome: "Home", navDev: "Developers", navAnn: "Announcements", navAbout: "About Us", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.04 Update<br>✅ Added About Us section<br>✅ Refined theme & active count", aboutTitle: "About Us", aboutText: "XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.", optDark: "Dark", optLight: "Light" },
+    tr: { navHome: "Ana Sayfa", navDev: "Geliştiriciler", navAnn: "Duyurular", navAbout: "Hakkımızda", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.04 Güncellemesi<br>✅ Hakkımızda bölümü eklendi<br>✅ Tema ve aktif sayı iyileştirildi", aboutTitle: "Hakkımızda", aboutText: "XRC, takım çalışmasına, aktiviteye ve gelişime odaklanmış rekabetçi bir Rivals klanıdır.<br><br>Amacımız, oyuncuların birlikte gelişebileceği, klan etkinliklerine katılabileceği ve XRC'yi gururla temsil edebileceği arkadaş canlısı ama yetenekli bir topluluk oluşturmaktır.<br><br>2026 yılında kuruldu.", optDark: "Koyu", optLight: "Açık" },
+    fr: { navHome: "Accueil", navDev: "Développeurs", navAnn: "Annonces", navAbout: "À Propos", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.04<br>✅ Section À Propos ajoutée<br>✅ Thème et actif optimisés", aboutTitle: "À Propos", aboutText: "XRC est un clan Rivals compétitif axé sur le travail d'équipe, l'activité et l'amélioration.<br><br>Notre objectif est de bâtir une communauté amicale mais qualifiée où les joueurs peuvent s'améliorer ensemble, participer à des événements de clan et représenter XRC avec fierté.<br><br>Fondé en 2026.", optDark: "Sombre", optLight: "Clair" },
+    de: { navHome: "Startseite", navDev: "Entwickler", navAnn: "Ankündigungen", navAbout: "Über Uns", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.04 Update<br>✅ Über Uns hinzugefügt<br>✅ Theme & Aktiv-Zähler verfeinert", aboutTitle: "Über Uns", aboutText: "XRC ist ein kompetitiver Rivals-Clan, der sich auf Teamwork, Aktivität und Verbesserung konzentriert.<br><br>Unser Ziel ist es, eine freundliche, aber qualifizierte Community aufzubauen, in der sich Spieler gemeinsam verbessern, an Clan-Events teilnehmen und XRC mit Stolz repräsentieren können.<br><br>Gegründet im Jahr 2026.", optDark: "Dunkel", optLight: "Hell" }
 };
 
 function changeLang(lang) { 
