@@ -77,6 +77,8 @@ font-size:18px;
 <select onchange="changeLang(this.value)">
 <option value="en">English</option>
 <option value="tr">Türkçe</option>
+<option value="fr">Français</option>
+<option value="de">Deutsch</option>
 </select>
 </div>
 
@@ -114,33 +116,133 @@ and help build the strongest Rivals community.
 
 <script>
 function changeLang(lang){
+
 if(lang==="tr"){
+
 navHome.innerText="Ana Sayfa";
 navDev.innerText="Geliştiriciler";
 navAnn.innerText="Duyurular";
+
 subtitle.innerText="Resmi Rivals Klan Topluluğu";
+
 desc.innerText="XRC topluluğuna katıl. Etkinliklere katıl, güçlü oyuncularla rekabet et ve Rivals topluluğunu büyüt.";
+
 joinBtn.innerText="Discord'a Katıl";
+
 devTitle.innerText="Geliştiriciler";
+
 ownerRole.innerText="Kurucu ve Sahip";
+
 annTitle.innerText="Duyurular";
-annText.innerText="Henüz duyuru yok.";
+
+annText.innerHTML=`🚀 v0.02 Güncellemesi<br><br>
+✅ Logo animasyonu eklendi<br>
+✅ Hareketli arka plan eklendi<br>
+✅ Geçiş animasyonları eklendi<br>
+✅ Alım rozeti animasyonu eklendi<br>
+✅ Navbar hover efektleri eklendi<br>
+✅ Geliştirici kartı efektleri eklendi<br>
+✅ Fransızca desteği eklendi<br>
+✅ Almanca desteği eklendi`;
+
 recruiting.innerText="🟢 Alımlar Açık";
-}else{
+
+}
+
+else if(lang==="fr"){
+
+navHome.innerText="Accueil";
+navDev.innerText="Développeurs";
+navAnn.innerText="Annonces";
+
+subtitle.innerText="Communauté Officielle Rivals Clan";
+
+desc.innerText="Rejoignez XRC et faites partie de notre communauté Rivals en pleine croissance. Participez aux événements du clan et affrontez des joueurs expérimentés.";
+
+joinBtn.innerText="Rejoindre Discord";
+
+devTitle.innerText="Développeurs";
+
+ownerRole.innerText="Fondateur et Propriétaire";
+
+annTitle.innerText="Annonces";
+
+annText.innerHTML=`🚀 Mise à jour v0.02<br><br>
+✅ Animation du logo ajoutée<br>
+✅ Arrière-plan animé ajouté<br>
+✅ Effets de transition ajoutés<br>
+✅ Badge de recrutement animé ajouté<br>
+✅ Effets de survol de la navigation ajoutés<br>
+✅ Effets de la carte développeur ajoutés<br>
+✅ Support du français ajouté<br>
+✅ Support de l'allemand ajouté`;
+
+recruiting.innerText="🟢 Recrutement Ouvert";
+
+}
+
+else if(lang==="de"){
+
+navHome.innerText="Startseite";
+navDev.innerText="Entwickler";
+navAnn.innerText="Ankündigungen";
+
+subtitle.innerText="Offizielle Rivals Clan Community";
+
+desc.innerText="Tritt XRC bei und werde Teil unserer wachsenden Rivals Community. Nimm an Clan-Events teil und tritt gegen erfahrene Spieler an.";
+
+joinBtn.innerText="Discord Beitreten";
+
+devTitle.innerText="Entwickler";
+
+ownerRole.innerText="Gründer und Besitzer";
+
+annTitle.innerText="Ankündigungen";
+
+annText.innerHTML=`🚀 v0.02 Update<br><br>
+✅ Logo-Animation hinzugefügt<br>
+✅ Animierter Hintergrund hinzugefügt<br>
+✅ Fade-In Effekte hinzugefügt<br>
+✅ Animiertes Recruiting-Badge hinzugefügt<br>
+✅ Navbar Hover-Effekte hinzugefügt<br>
+✅ Entwicklerkarten-Effekte hinzugefügt<br>
+✅ Französische Sprache hinzugefügt<br>
+✅ Deutsche Sprache hinzugefügt`;
+
+recruiting.innerText="🟢 Rekrutierung Offen";
+
+}
+
+else{
+
 navHome.innerText="Home";
 navDev.innerText="Developers";
 navAnn.innerText="Announcements";
-subtitle.innerText="Official Rivals Clan Community";
-desc.innerText="Join XRC and become part of our growing Rivals community. Compete with skilled players, participate in clan events, and help build the strongest Rivals community.";
-joinBtn.innerText="Join Discord";
-devTitle.innerText="Developers";
-ownerRole.innerText="Owner & Founder";
-annTitle.innerText="Announcements";
-annText.innerText="No announcements yet.";
-recruiting.innerText="🟢 Recruiting Now";
-}
-}
-</script>
 
-</body>
-</html>
+subtitle.innerText="Official Rivals Clan Community";
+
+desc.innerText="Join XRC and become part of our growing Rivals community. Compete with skilled players, participate in clan events, and help build the strongest Rivals community.";
+
+joinBtn.innerText="Join Discord";
+
+devTitle.innerText="Developers";
+
+ownerRole.innerText="Owner & Founder";
+
+annTitle.innerText="Announcements";
+
+annText.innerHTML=`🚀 v0.02 Update<br><br>
+✅ Added logo animation<br>
+✅ Added animated background<br>
+✅ Added fade-in effects<br>
+✅ Added pulse recruiting badge<br>
+✅ Added navbar hover effects<br>
+✅ Added developer card hover effects<br>
+✅ Added French language support<br>
+✅ Added German language support`;
+
+recruiting.innerText="🟢 Recruiting Now";
+
+}
+
+}
