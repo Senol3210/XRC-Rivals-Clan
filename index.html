@@ -28,7 +28,6 @@
         .navbar a:hover::after { width: 100%; }
 
         .container { max-width: 900px; margin: auto; padding: 150px 20px; text-align: center; }
-        
         .logo-wrapper { margin-bottom: 20px; }
         .logo { width: 180px; height: 180px; border-radius: 30px; animation: float 3s ease-in-out infinite; border: 2px solid #333; object-fit: cover; }
         .badge { display: inline-block; padding: 8px 18px; border-radius: 50px; background: #111; color: var(--accent-green); animation: pulse 2s infinite; font-weight: bold; font-size: 0.9em; border: 1px solid #222; }
@@ -46,7 +45,7 @@
     <a href="#home" id="navHome">Home</a>
     <a href="#developers" id="navDev">Developers</a>
     <a href="#announcements" id="navAnn">Announcements</a>
-    <span id="navActive">Active: Loading...</span>
+    <span id="navActive" style="color:var(--accent-green)">Active: Loading...</span>
     <select onchange="changeLang(this.value)" style="background:#222; color:white; border:none; padding:5px; border-radius:5px; cursor:pointer;">
         <option value="en">English</option>
         <option value="tr">Türkçe</option>
@@ -65,10 +64,6 @@
     <p id="subtitle" style="color: #888;">Official Rivals Clan Community</p>
     <p id="desc" style="margin: 30px 0; line-height: 1.6;">Join XRC and become part of our growing Rivals community.</p>
     <a href="https://discord.gg/2dE9NAVHeb" target="_blank" class="join-btn" id="joinBtn">Join Discord</a>
-
-    <div style="margin-top: 40px;">
-        <iframe src="https://discord.com/widget?id=1513976181056082061&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
-    </div>
 
     <div class="section" id="developers">
         <h2 id="devTitle">Developers</h2>
@@ -90,7 +85,6 @@
 </div>
 
 <script>
-// Aktif oyuncu sayısını API'den çekme
 fetch('https://discord.com/api/guilds/1513976181056082061/widget.json')
     .then(response => response.json())
     .then(data => { document.getElementById('navActive').innerText = 'Active: ' + data.presence_count; })
