@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XRC | Rivals Clan</title>
     <style>
-        :root {
-            --bg-dark: #050505;
-            --accent-green: #71ff9b;
-        }
-
+        :root { --bg-dark: #050505; --accent-green: #71ff9b; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
@@ -17,78 +13,32 @@
             color: white;
             background: radial-gradient(circle at center, #2f2f2f, #111, #050505);
             background-size: 400% 400%;
-            /* Çakışma sorunu burada giderildi: Animasyonlar virgülle ayrıldı */
             animation: gradientBG 15s ease infinite, fadeIn 1s ease forwards;
             opacity: 0;
         }
 
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         @keyframes fadeIn { to { opacity: 1; } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(113, 255, 155, 0); } 100% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0); } }
 
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(113, 255, 155, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0); }
-        }
-
-        .navbar {
-            position: fixed; top: 0; width: 100%;
-            background: rgba(11, 11, 11, 0.9);
-            border-bottom: 1px solid #222;
-            display: flex; justify-content: center; align-items: center;
-            gap: 30px; padding: 18px; z-index: 1000;
-        }
-
-        .navbar a {
-            color: #ddd; text-decoration: none; font-weight: bold;
-            position: relative; transition: 0.3s;
-        }
-
-        .navbar a::after {
-            content: ''; position: absolute; left: 0; bottom: -5px;
-            width: 0; height: 2px; background: var(--accent-green); transition: 0.3s;
-        }
-
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(11, 11, 11, 0.9); border-bottom: 1px solid #222; display: flex; justify-content: center; align-items: center; gap: 30px; padding: 18px; z-index: 1000; }
+        .navbar a { color: #ddd; text-decoration: none; font-weight: bold; position: relative; transition: 0.3s; }
+        .navbar a::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--accent-green); transition: 0.3s; }
         .navbar a:hover::after { width: 100%; }
 
         .container { max-width: 900px; margin: auto; padding: 150px 20px; text-align: center; }
-
-        .logo {
-            width: 200px; animation: float 3s ease-in-out infinite;
-            filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
-        }
-
-        .badge {
-            display: inline-block; margin: 20px; padding: 10px 20px;
-            border-radius: 50px; background: #111; color: var(--accent-green);
-            animation: pulse 2s infinite; font-weight: bold;
-        }
+        
+        /* Logo ve Badge düzenlemesi */
+        .logo-wrapper { margin-bottom: 20px; }
+        .logo { width: 180px; height: 180px; border-radius: 30px; animation: float 3s ease-in-out infinite; border: 2px solid #333; object-fit: cover; }
+        .badge { display: inline-block; padding: 8px 18px; border-radius: 50px; background: #111; color: var(--accent-green); animation: pulse 2s infinite; font-weight: bold; font-size: 0.9em; border: 1px solid #222; }
 
         .section { background: #0f0f0f; padding: 40px; border-radius: 20px; margin-top: 50px; border: 1px solid #222; }
-
-        .profile-card {
-            display: inline-block; padding: 20px; border-radius: 20px;
-            transition: 0.3s; border: 1px solid transparent;
-        }
-
+        .profile-card { display: inline-block; padding: 20px; border-radius: 20px; transition: 0.3s; border: 1px solid transparent; }
         .profile-card:hover { border-color: var(--accent-green); box-shadow: 0 0 20px rgba(113, 255, 155, 0.2); }
-
-        .profile { width: 150px; border-radius: 50%; }
-
-        .join-btn {
-            display: inline-block; padding: 15px 30px; background: #222;
-            border-radius: 10px; color: white; text-decoration: none; font-weight: bold;
-        }
+        .profile { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
+        .join-btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #222; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
@@ -97,7 +47,7 @@
     <a href="#home" id="navHome">Home</a>
     <a href="#developers" id="navDev">Developers</a>
     <a href="#announcements" id="navAnn">Announcements</a>
-    <select onchange="changeLang(this.value)" style="background:#222; color:white; border:none; padding:5px;">
+    <select onchange="changeLang(this.value)" style="background:#222; color:white; border:none; padding:5px; border-radius:5px; cursor:pointer;">
         <option value="en">English</option>
         <option value="tr">Türkçe</option>
         <option value="fr">Français</option>
@@ -106,10 +56,13 @@
 </nav>
 
 <div class="container" id="home">
-    <img src="logo.png" class="logo" alt="Logo">
+    <div class="logo-wrapper">
+        <img src="logo.png" class="logo" alt="Logo">
+    </div>
     <div class="badge" id="recruiting">🟢 Recruiting Now</div>
-    <h1 id="title">XRC | Rivals Clan</h1>
-    <p id="subtitle">Official Rivals Clan Community</p>
+    
+    <h1 id="title" style="margin-top: 20px;">XRC | Rivals Clan</h1>
+    <p id="subtitle" style="color: #888;">Official Rivals Clan Community</p>
     <p id="desc" style="margin: 30px 0; line-height: 1.6;">Join XRC and become part of our growing Rivals community.</p>
     <a href="https://discord.gg/2dE9NAVHeb" target="_blank" class="join-btn" id="joinBtn">Join Discord</a>
 
@@ -127,23 +80,19 @@
     <div class="section" id="announcements">
         <h2 id="annTitle">Announcements</h2>
         <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">
-            🚀 v0.02 Update<br>✅ Logo animation added<br>✅ Animated background added<br>✅ Fade-in effects added<br>✅ Recruiting badge pulse added<br>✅ Navbar hover effects added<br>✅ Developer card glow added<br>✅ French/German support added
+            🚀 v0.02 Update<br>✅ Logo refined and moved<br>✅ Improved mobile layout
         </div>
     </div>
 </div>
 
 <script>
 const translations = {
-    en: { navHome: "Home", navDev: "Developers", navAnn: "Announcements", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.02 Update<br>✅ Logo animation added<br>✅ Animated background added<br>✅ Fade-in effects added<br>✅ Recruiting badge pulse added<br>✅ Navbar hover effects added<br>✅ Developer card glow added<br>✅ French/German support added" },
-    tr: { navHome: "Ana Sayfa", navDev: "Geliştiriciler", navAnn: "Duyurular", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.02 Güncellemesi<br>✅ Logo animasyonu eklendi<br>✅ Hareketli arka plan eklendi<br>✅ Geçiş animasyonları eklendi<br>✅ Alım rozeti animasyonu eklendi<br>✅ Navbar hover efektleri eklendi<br>✅ Geliştirici kartı parlaması eklendi<br>✅ Dil desteği eklendi" },
-    fr: { navHome: "Accueil", navDev: "Développeurs", navAnn: "Annonces", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.02<br>✅ Animation du logo ajoutée<br>✅ Arrière-plan animé ajouté<br>✅ Effets de fondu ajoutés<br>✅ Badge de recrutement pulsé ajouté<br>✅ Effets de survol ajoutés<br>✅ Effet de lueur carte ajouté<br>✅ Support multilingue ajouté" },
-    de: { navHome: "Startseite", navDev: "Entwickler", navAnn: "Ankündigungen", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.02 Update<br>✅ Logo-Animation hinzugefügt<br>✅ Animierter Hintergrund hinzugefügt<br>✅ Fade-In Effekte hinzugefügt<br>✅ Pulsierendes Recruiting-Badge hinzugefügt<br>✅ Navbar Hover-Effekte hinzugefügt<br>✅ Entwicklerkarten-Glühen hinzugefügt<br>✅ Mehrsprachige Unterstützung hinzugefügt" }
+    en: { navHome: "Home", navDev: "Developers", navAnn: "Announcements", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.02 Update<br>✅ Logo refined and moved<br>✅ Improved mobile layout" },
+    tr: { navHome: "Ana Sayfa", navDev: "Geliştiriciler", navAnn: "Duyurular", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.02 Güncellemesi<br>✅ Logo düzenlendi<br>✅ Mobil uyum iyileştirildi" },
+    fr: { navHome: "Accueil", navDev: "Développeurs", navAnn: "Annonces", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.02<br>✅ Logo raffiné<br>✅ Mise en page optimisée" },
+    de: { navHome: "Startseite", navDev: "Entwickler", navAnn: "Ankündigungen", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.02 Update<br>✅ Logo verfeinert<br>✅ Layout optimiert" }
 };
-
-function changeLang(lang) {
-    const t = translations[lang];
-    for (let id in t) document.getElementById(id).innerHTML = t[id];
-}
+function changeLang(lang) { const t = translations[lang]; for (let id in t) document.getElementById(id).innerHTML = t[id]; }
 </script>
 </body>
 </html>
