@@ -12,27 +12,32 @@
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(113, 255, 155, 0); } 100% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0); } }
-        .navbar { position: fixed; top: 0; width: 100%; background: rgba(11, 11, 11, 0.9); border-bottom: 1px solid #222; display: flex; justify-content: center; align-items: center; gap: 20px; padding: 18px; z-index: 1000; }
-        .navbar a, .navbar span { color: #ddd; text-decoration: none; font-weight: bold; position: relative; transition: 0.3s; }
+        
+        .navbar { position: fixed; top: 0; width: 100%; background: rgba(11, 11, 11, 0.95); border-bottom: 1px solid #222; display: flex; justify-content: center; align-items: center; gap: 15px; padding: 15px; z-index: 1000; flex-wrap: wrap; }
+        .navbar a, .navbar span { color: #ddd; text-decoration: none; font-weight: bold; position: relative; transition: 0.3s; font-size: 0.9em; }
         .navbar a::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--accent-green); transition: 0.3s; }
         .navbar a:hover::after { width: 100%; }
-        .container { max-width: 900px; margin: auto; padding: 150px 20px; text-align: center; }
-        .logo { width: 180px; height: 180px; border-radius: 30px; animation: float 3s ease-in-out infinite; border: 2px solid #333; object-fit: cover; }
-        .badge { display: inline-block; padding: 8px 18px; border-radius: 50px; background: #111; color: var(--accent-green); animation: pulse 2s infinite; font-weight: bold; font-size: 0.9em; border: 1px solid #222; }
-        .section { background: #0f0f0f; padding: 40px; border-radius: 20px; margin-top: 50px; border: 1px solid #222; }
+        
+        .container { max-width: 900px; margin: auto; padding: 120px 20px 50px 20px; text-align: center; }
+        .logo { width: 150px; height: 150px; border-radius: 30px; animation: float 3s ease-in-out infinite; border: 2px solid #333; object-fit: cover; }
+        .badge { display: inline-block; padding: 8px 18px; border-radius: 50px; background: #111; color: var(--accent-green); animation: pulse 2s infinite; font-weight: bold; font-size: 0.9em; border: 1px solid #222; margin-top: 20px; }
+        .section { background: #0f0f0f; padding: 30px; border-radius: 20px; margin-top: 40px; border: 1px solid #222; }
         .profile-card { display: inline-block; padding: 20px; border-radius: 20px; transition: 0.3s; border: 1px solid transparent; }
-        .profile-card:hover { border-color: var(--accent-green); box-shadow: 0 0 20px rgba(113, 255, 155, 0.2); }
-        .profile { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
+        .profile { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; }
         .join-btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #222; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; transition: 0.3s; }
-        .join-btn:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); transform: scale(1.05); }
+        
         body.light-mode { color: #111; background: radial-gradient(circle at center, #ffffff, #e8e8e8, #dcdcdc); }
-        body.light-mode .navbar { background: rgba(255,255,255,0.9); border-bottom: 1px solid #ccc; }
+        body.light-mode .navbar { background: rgba(255,255,255,0.95); border-bottom: 1px solid #ccc; }
         body.light-mode .navbar a, body.light-mode .navbar span { color: #111; }
         body.light-mode .section { background: #ffffff; border: 1px solid #ccc; }
-        body.light-mode .join-btn { background: #222; color: #fff; }
-        body.light-mode .badge { background: #f0f0f0; color: var(--accent-blue); border-color: var(--accent-blue); }
         body.light-mode #annText, body.light-mode #aboutText, body.light-mode #statusText { background: #eee !important; color: #111 !important; }
-        body.light-mode #navActive { color: var(--accent-blue) !important; }
+        
+        /* Mobil Düzeltme */
+        @media (max-width: 600px) {
+            .navbar { gap: 10px; padding: 10px; }
+            .navbar a, .navbar span, .navbar select { font-size: 0.8em; }
+            .container { padding-top: 150px; }
+        }
     </style>
 </head>
 <body>
@@ -42,25 +47,20 @@
     <a href="#developers" id="navDev">Developers</a>
     <a href="#announcements" id="navAnn">Announcements</a>
     <a href="#about" id="navAbout">About Us</a>
-    <span id="navActive" style="color:var(--accent-green)">Active: Loading...</span>
+    <span id="navActive">Active: Loading...</span>
     <select onchange="changeLang(this.value)" style="background:#222; color:white; border:none; padding:5px; border-radius:5px; cursor:pointer;">
-        <option value="en">English</option>
-        <option value="tr">Türkçe</option>
-        <option value="fr">Français</option>
-        <option value="de">Deutsch</option>
+        <option value="en">EN</option> <option value="tr">TR</option> <option value="fr">FR</option> <option value="de">DE</option>
     </select>
     <select onchange="changeTheme(this.value)" style="background:#222; color:white; border:none; padding:5px; border-radius:5px; cursor:pointer;">
-        <option value="dark" id="optDark">Dark</option>
-        <option value="light" id="optLight">Light</option>
+        <option value="dark" id="optDark">Dark</option> <option value="light" id="optLight">Light</option>
     </select>
 </nav>
 
 <div class="container" id="home">
-    <div class="logo-wrapper"><img src="logo.png" class="logo" alt="Logo"></div>
+    <img src="logo.png" class="logo" alt="Logo">
     <div class="badge" id="recruiting">🟢 Recruiting Now</div>
     <h1 id="title" style="margin-top: 20px;">XRC | Rivals Clan</h1>
     <p id="subtitle" style="color: #888;">Official Rivals Clan Community</p>
-    <p id="desc" style="margin: 30px 0; line-height: 1.6;">Join XRC and become part of our growing Rivals community.</p>
     <a href="https://discord.gg/2dE9NAVHeb" target="_blank" class="join-btn" id="joinBtn">Join Discord</a>
 
     <div class="section" id="status">
@@ -68,23 +68,9 @@
         <div id="statusText" style="margin-top:20px; font-weight:bold; background:#151515; padding:20px; border-radius:10px; color: var(--accent-green);">🟢 Training & Active</div>
     </div>
 
-    <div class="section" id="developers">
-        <h2 id="devTitle">Developers</h2>
-        <div class="profile-card">
-            <a href="https://www.roblox.com/users/1321103668/profile" target="_blank"><img src="profile.png" class="profile"></a>
-            <div style="font-size:24px; font-weight:bold; margin-top:10px;">Senol3210</div>
-            <div id="ownerRole" style="color: #888;">Owner & Founder</div>
-        </div>
-    </div>
-
     <div class="section" id="announcements">
-        <h2 id="annTitle">Announcements</h2>
-        <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">🚀 v0.03 Update<br>✅ Light mode added<br>✅ About Us added<br>✅ Clan Status section added</div>
-    </div>
-
-    <div class="section" id="about">
-        <h2 id="aboutTitle">About Us</h2>
-        <div id="aboutText" style="margin-top:20px; text-align:center; background:#151515; padding:20px; border-radius:10px; line-height: 1.8;">XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.</div>
+        <h2 id="annTitle">v0.035 Update</h2>
+        <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">✅ Mobile support added</div>
     </div>
 
     <footer id="footerText" style="margin-top: 50px; color: #555; font-size: 0.9em;">&copy; 2026 XRC | Rivals Clan. All rights reserved.</footer>
@@ -92,26 +78,21 @@
 
 <script>
 fetch('https://discord.com/api/guilds/1513976181056082061/widget.json')
-    .then(response => response.json())
-    .then(data => { document.getElementById('navActive').innerText = 'Active: ' + data.presence_count; })
+    .then(r => r.json())
+    .then(d => { document.getElementById('navActive').innerText = 'Active: ' + d.presence_count; })
     .catch(() => { document.getElementById('navActive').innerText = 'Active: -'; });
 
 const translations = {
-    en: { navHome: "Home", navStatus: "Clan Status", navDev: "Developers", navAnn: "Announcements", navAbout: "About Us", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.03 Update<br>✅ Light mode added<br>✅ About Us added<br>✅ Clan Status section added", aboutTitle: "About Us", aboutText: "XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.", statusTitle: "Clan Status", statusText: "🟢 Training & Active", footerText: "&copy; 2026 XRC | Rivals Clan. All rights reserved.", optDark: "Dark", optLight: "Light" },
-    tr: { navHome: "Ana Sayfa", navStatus: "Klan Durumu", navDev: "Geliştiriciler", navAnn: "Duyurular", navAbout: "Hakkımızda", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.03 Güncellemesi<br>✅ Light mode eklendi<br>✅ Hakkımızda eklendi<br>✅ Klan Durumu eklendi", aboutTitle: "Hakkımızda", aboutText: "XRC, takım çalışmasına, aktiviteye ve gelişime odaklanmış rekabetçi bir Rivals klanıdır.<br><br>Amacımız, oyuncuların birlikte gelişebileceği, klan etkinliklerine katılabileceği ve XRC'yi gururla temsil edebileceği arkadaş canlısı ama yetenekli bir topluluk oluşturmaktır.<br><br>2026 yılında kuruldu.", statusTitle: "Klan Durumu", statusText: "🟢 Antrenman ve Aktif", footerText: "&copy; 2026 XRC | Rivals Klanı. Tüm hakları saklıdır.", optDark: "Koyu", optLight: "Açık" },
-    fr: { navHome: "Accueil", navStatus: "État du Clan", navDev: "Développeurs", navAnn: "Annonces", navAbout: "À Propos", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.03<br>✅ Mode clair ajouté<br>✅ À Propos ajouté<br>✅ État du Clan ajouté", aboutTitle: "À Propos", aboutText: "XRC est un clan Rivals compétitif axé sur le travail d'équipe, l'activité et l'amélioration.<br><br>Notre objectif est de bâtir une communauté amicale mais qualifiée où les joueurs peuvent s'améliorer ensemble, participer à des événements de clan et représenter XRC avec fierté.<br><br>Fondé en 2026.", statusTitle: "État du Clan", statusText: "🟢 Entraînement et Actif", footerText: "&copy; 2026 XRC | Rivals Clan. Tous droits réservés.", optDark: "Sombre", optLight: "Clair" },
-    de: { navHome: "Startseite", navStatus: "Clan-Status", navDev: "Entwickler", navAnn: "Ankündigungen", navAbout: "Über Uns", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.03 Update<br>✅ Light-Mode hinzugefügt<br>✅ Über Uns hinzugefügt<br>✅ Clan-Status hinzugefügt", aboutTitle: "Über Uns", aboutText: "XRC ist ein kompetitiver Rivals-Clan, der sich auf Teamwork, Aktivität und Verbesserung konzentriert.<br><br>Unser Ziel ist es, eine freundliche, aber qualifizierte Community aufzubauen, in der sich Spieler gemeinsam verbessern, an Clan-Events teilnehmen und XRC mit Stolz repräsentieren können.<br><br>Gegründet im Jahr 2026.", statusTitle: "Clan-Status", statusText: "🟢 Training und Aktiv", footerText: "&copy; 2026 XRC | Rivals Clan. Alle Rechte vorbehalten.", optDark: "Dunkel", optLight: "Hell" }
+    en: { navHome: "Home", navStatus: "Status", navDev: "Devs", navAnn: "Updates", navAbout: "About", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", joinBtn: "Join Discord", statusTitle: "Clan Status", statusText: "🟢 Training & Active", annTitle: "v0.035 Update", annText: "✅ Mobile support added", footerText: "&copy; 2026 XRC | Rivals Clan. All rights reserved.", optDark: "Dark", optLight: "Light" },
+    tr: { navHome: "Ana Sayfa", navStatus: "Durum", navDev: "Geliştiriciler", navAnn: "Güncellemeler", navAbout: "Hakkımızda", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", joinBtn: "Discord'a Katıl", statusTitle: "Klan Durumu", statusText: "🟢 Antrenman ve Aktif", annTitle: "v0.035 Güncellemesi", annText: "✅ Mobil destek eklendi", footerText: "&copy; 2026 XRC | Rivals Klanı. Tüm hakları saklıdır.", optDark: "Koyu", optLight: "Açık" },
+    fr: { navHome: "Accueil", navStatus: "État", navDev: "Développeurs", navAnn: "Mises à jour", navAbout: "À Propos", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", joinBtn: "Rejoindre Discord", statusTitle: "État du Clan", statusText: "🟢 Entraînement et Actif", annTitle: "Mise à jour v0.035", annText: "✅ Support mobile ajouté", footerText: "&copy; 2026 XRC | Rivals Clan. Tous droits réservés.", optDark: "Sombre", optLight: "Clair" },
+    de: { navHome: "Start", navStatus: "Status", navDev: "Entwickler", navAnn: "Updates", navAbout: "Über Uns", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", joinBtn: "Discord Beitreten", statusTitle: "Clan-Status", statusText: "🟢 Training und Aktiv", annTitle: "v0.035 Update", annText: "✅ Mobile Unterstützung hinzugefügt", footerText: "&copy; 2026 XRC | Rivals Clan. Alle Rechte vorbehalten.", optDark: "Dunkel", optLight: "Hell" }
 };
 
 function changeLang(lang) { 
     const t = translations[lang]; 
     for (let id in t) {
-        if (id === 'navActive') {
-            const activeVal = document.getElementById('navActive').innerText.split(': ')[1];
-            document.getElementById('navActive').innerText = t[id] + ': ' + activeVal;
-        } else if (document.getElementById(id)) {
-            document.getElementById(id).innerHTML = t[id]; 
-        }
+        if (document.getElementById(id)) document.getElementById(id).innerHTML = t[id];
     }
 }
 function changeTheme(theme){
