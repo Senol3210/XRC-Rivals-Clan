@@ -68,7 +68,17 @@
 
         body.light-mode #navActive { color: var(--accent-blue) !important; }
 
-    </style>
+    
+body.midnight-mode{color:#dbe8ff;background:radial-gradient(circle at center,#16213e,#0f172a,#020617);}
+body.midnight-mode .navbar,body.midnight-mode .section,body.midnight-mode #annText,body.midnight-mode #aboutText,body.midnight-mode #statusText{background:#0b1220!important;color:#dbe8ff!important;border-color:#1e3a5f!important;}
+body.skyblue-mode{color:#083344;background:radial-gradient(circle at center,#dbeafe,#bae6fd,#7dd3fc);}
+body.skyblue-mode .navbar,body.skyblue-mode .section,body.skyblue-mode #annText,body.skyblue-mode #aboutText,body.skyblue-mode #statusText{background:#e0f2fe!important;color:#083344!important;border-color:#38bdf8!important;}
+body.pink-mode{color:#831843;background:radial-gradient(circle at center,#fce7f3,#fbcfe8,#f9a8d4);}
+body.pink-mode .navbar,body.pink-mode .section,body.pink-mode #annText,body.pink-mode #aboutText,body.pink-mode #statusText{background:#fdf2f8!important;color:#831843!important;border-color:#ec4899!important;}
+body.yellow-mode{color:#713f12;background:radial-gradient(circle at center,#fef9c3,#fde68a,#facc15);}
+body.yellow-mode .navbar,body.yellow-mode .section,body.yellow-mode #annText,body.yellow-mode #aboutText,body.yellow-mode #statusText{background:#fffbeb!important;color:#713f12!important;border-color:#eab308!important;}
+
+</style>
 
 </head>
 
@@ -105,6 +115,10 @@
         <option value="dark" id="optDark">Dark</option>
 
         <option value="light" id="optLight">Light</option>
+        <option value="midnight">Midnight</option>
+        <option value="skyblue">Sky Blue</option>
+        <option value="pink">Pink</option>
+        <option value="yellow">Yellow</option>
 
     </select>
 
@@ -160,7 +174,7 @@
 
         <h2 id="annTitle">Announcements</h2>
 
-        <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">🚀 v0.03 Update<br>✅ Light mode added<br>✅ About Us added<br>✅ Clan Status section added</div>
+        <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">🚀 v0.035 Update<br>✅ Midnight Mode Added</div>
 
     </div>
 
@@ -196,7 +210,7 @@ fetch('https://discord.com/api/guilds/1513976181056082061/widget.json')
 
 const translations = {
 
-    en: { navHome: "Home", navStatus: "Clan Status", navDev: "Developers", navAnn: "Announcements", navAbout: "About Us", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.03 Update<br>✅ Light mode added<br>✅ About Us added<br>✅ Clan Status section added", aboutTitle: "About Us", aboutText: "XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.", statusTitle: "Clan Status", statusText: "🟢 Training & Active", footerText: "&copy; 2026 XRC | Rivals Clan. All rights reserved.", optDark: "Dark", optLight: "Light" },
+    en: { navHome: "Home", navStatus: "Clan Status", navDev: "Developers", navAnn: "Announcements", navAbout: "About Us", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: "🚀 v0.035 Update<br>✅ Midnight Mode Added", aboutTitle: "About Us", aboutText: "XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.", statusTitle: "Clan Status", statusText: "🟢 Training & Active", footerText: "&copy; 2026 XRC | Rivals Clan. All rights reserved.", optDark: "Dark", optLight: "Light" },
 
     tr: { navHome: "Ana Sayfa", navStatus: "Klan Durumu", navDev: "Geliştiriciler", navAnn: "Duyurular", navAbout: "Hakkımızda", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.03 Güncellemesi<br>✅ Light mode eklendi<br>✅ Hakkımızda eklendi<br>✅ Klan Durumu eklendi", aboutTitle: "Hakkımızda", aboutText: "XRC, takım çalışmasına, aktiviteye ve gelişime odaklanmış rekabetçi bir Rivals klanıdır.<br><br>Amacımız, oyuncuların birlikte gelişebileceği, klan etkinliklerine katılabileceği ve XRC'yi gururla temsil edebileceği arkadaş canlısı ama yetenekli bir topluluk oluşturmaktır.<br><br>2026 yılında kuruldu.", statusTitle: "Klan Durumu", statusText: "🟢 Antrenman ve Aktif", footerText: "&copy; 2026 XRC | Rivals Klanı. Tüm hakları saklıdır.", optDark: "Koyu", optLight: "Açık" },
 
@@ -231,11 +245,12 @@ function changeLang(lang) {
 }
 
 function changeTheme(theme){
-
-    if(theme === 'light') document.body.classList.add('light-mode');
-
-    else document.body.classList.remove('light-mode');
-
+document.body.classList.remove('light-mode','midnight-mode','skyblue-mode','pink-mode','yellow-mode');
+if(theme==='light') document.body.classList.add('light-mode');
+if(theme==='midnight') document.body.classList.add('midnight-mode');
+if(theme==='skyblue') document.body.classList.add('skyblue-mode');
+if(theme==='pink') document.body.classList.add('pink-mode');
+if(theme==='yellow') document.body.classList.add('yellow-mode');
 }
 
 </script>
