@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- ===== Primary SEO ===== -->
+  <title>XRC | Rivals Clan — Official Roblox Rivals Clan Community</title>
+  <meta name="description" content="XRC is a competitive Roblox Rivals clan built on skill, discipline and community. Join the ranks, track live status, meet the developers and follow official announcements.">
+  <meta name="keywords" content="XRC, Rivals, Roblox Rivals, Roblox clan, Rivals clan, competitive Roblox, Roblox esports, SenoI3210">
+  <meta name="author" content="SenoI3210">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://xrc-clan.github.io/">
+
+  <!-- ===== Theme / PWA ===== -->
+  <meta name="theme-color" content="#0a0b10">
+  <meta name="color-scheme" content="dark light">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+  <link rel="apple-touch-icon" href="assets/logo.png">
+
+  <!-- ===== Open Graph / Social ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="XRC | Rivals Clan">
+  <meta property="og:title" content="XRC | Rivals Clan">
+  <meta property="og:description" content="Official Roblox Rivals Clan Community — competitive, disciplined, and always recruiting.">
+  <meta property="og:image" content="assets/logo.png">
+  <meta property="og:url" content="https://xrc-clan.github.io/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="XRC | Rivals Clan">
+  <meta name="twitter:description" content="Official Roblox Rivals Clan Community — competitive, disciplined, and always recruiting.">
+  <meta name="twitter:image" content="assets/logo.png">
+
+  <!-- ===== Fonts ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- ===== Styles ===== -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ===================== AMBIENT BACKGROUND ===================== -->
+  <div class="ambient" aria-hidden="true">
+    <canvas id="particles-canvas"></canvas>
+    <div class="ambient__grid"></div>
+    <div class="ambient__glow ambient__glow--a"></div>
+    <div class="ambient__glow ambient__glow--b"></div>
+  </div>
+
+  <!-- ===================== NAVBAR ===================== -->
+  <header class="nav" id="nav">
+    <div class="nav__inner">
+
+      <a class="nav__brand" href="index.html" aria-label="XRC home">
+        <img class="nav__logo" src="assets/logo.png" alt="XRC crest">
+        <span class="nav__brand-text">XRC</span>
+      </a>
+
+      <nav class="nav__links" id="nav-links" aria-label="Primary">
+        <a href="index.html" class="nav__link is-active" data-i18n="nav.home">Home</a>
+        <a href="status.html" class="nav__link" data-i18n="nav.status">Clan Status</a>
+        <a href="developers.html" class="nav__link" data-i18n="nav.developers">Developers</a>
+        <a href="announcements.html" class="nav__link" data-i18n="nav.announcements">Announcements</a>
+        <a href="about.html" class="nav__link" data-i18n="nav.about">About Us</a>
+      </nav>
+
+      <div class="nav__utility">
+
+        <div class="nav__active" title="Members currently online">
+          <span class="nav__active-dot"></span>
+          <span class="nav__active-count" id="active-count">--</span>
+          <span class="nav__active-label" data-i18n="nav.online">online</span>
+        </div>
+
+        <!-- Language dropdown -->
+        <div class="dropdown" data-dropdown="lang">
+          <button class="dropdown__trigger" id="lang-trigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="dropdown__flag" id="lang-flag">🇬🇧</span>
+            <span class="dropdown__value" id="lang-value">EN</span>
+            <svg class="dropdown__chevron" viewBox="0 0 12 8" width="12" height="8"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="dropdown__menu" id="lang-menu" role="listbox" aria-label="Select language">
+            <li role="option" data-lang="en"><span>🇬🇧</span> English</li>
+            <li role="option" data-lang="tr"><span>🇹🇷</span> Türkçe</li>
+            <li role="option" data-lang="de"><span>🇩🇪</span> Deutsch</li>
+            <li role="option" data-lang="fr"><span>🇫🇷</span> Français</li>
+            <li role="option" data-lang="es"><span>🇪🇸</span> Español</li>
+            <li role="option" data-lang="it"><span>🇮🇹</span> Italiano</li>
+            <li role="option" data-lang="pt"><span>🇵🇹</span> Português</li>
+            <li role="option" data-lang="ru"><span>🇷🇺</span> Русский</li>
+            <li role="option" data-lang="ja"><span>🇯🇵</span> 日本語</li>
+            <li role="option" data-lang="zh"><span>🇨🇳</span> 中文</li>
+          </ul>
+        </div>
+
+        <!-- Theme dropdown -->
+        <div class="dropdown" data-dropdown="theme">
+          <button class="dropdown__trigger" id="theme-trigger" aria-haspopup="listbox" aria-expanded="false">
+            <span class="dropdown__swatch" id="theme-swatch" data-swatch="dark"></span>
+            <span class="dropdown__value" id="theme-value">Dark</span>
+            <svg class="dropdown__chevron" viewBox="0 0 12 8" width="12" height="8"><path d="M1 1l5 5 5-5" stroke="currentColor" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
+          <ul class="dropdown__menu dropdown__menu--themes" id="theme-menu" role="listbox" aria-label="Select theme">
+            <li role="option" data-theme-option="dark"><span class="dropdown__swatch" data-swatch="dark"></span> Dark</li>
+            <li role="option" data-theme-option="light"><span class="dropdown__swatch" data-swatch="light"></span> Light</li>
+            <li role="option" data-theme-option="midnight"><span class="dropdown__swatch" data-swatch="midnight"></span> Midnight</li>
+            <li role="option" data-theme-option="sky"><span class="dropdown__swatch" data-swatch="sky"></span> Sky</li>
+            <li role="option" data-theme-option="blue"><span class="dropdown__swatch" data-swatch="blue"></span> Blue</li>
+            <li role="option" data-theme-option="pink"><span class="dropdown__swatch" data-swatch="pink"></span> Pink</li>
+            <li role="option" data-theme-option="yellow"><span class="dropdown__swatch" data-swatch="yellow"></span> Yellow</li>
+          </ul>
+        </div>
+
+        <button class="nav__burger" id="nav-burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================== MAIN ===================== -->
+  <main id="main">
+
+    <!-- ===================== HERO ===================== -->
+    <section class="hero">
+      <div class="hero__hud" aria-hidden="true">
+        <span class="hud-corner hud-corner--tl"></span>
+        <span class="hud-corner hud-corner--tr"></span>
+        <span class="hud-corner hud-corner--bl"></span>
+        <span class="hud-corner hud-corner--br"></span>
+      </div>
+
+      <div class="hero__inner">
+        <span class="badge badge--recruit" data-reveal>
+          <span class="badge__dot"></span>
+          <span data-i18n="hero.badge">Recruiting now</span>
+        </span>
+
+        <div class="hero__logo-wrap" data-reveal>
+          <img src="assets/logo.png" alt="XRC clan crest" class="hero__logo">
+          <div class="hero__logo-ring"></div>
+        </div>
+
+        <h1 class="hero__title" data-reveal>
+          <span class="hero__title-main">XRC</span>
+          <span class="hero__title-divider" aria-hidden="true">|</span>
+          <span class="hero__title-sub-inline" data-i18n="hero.titleSuffix">Rivals Clan</span>
+        </h1>
+
+        <p class="hero__subtitle" data-reveal data-i18n="hero.subtitle">
+          Official Roblox Rivals Clan Community
+        </p>
+
+        <div class="hero__actions" data-reveal>
+          <a class="btn btn--primary btn--ripple" href="https://discord.gg/your-invite" target="_blank" rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true"><path d="M20.317 4.369A19.79 19.79 0 0 0 15.885 3c-.211.375-.444.879-.608 1.278a18.27 18.27 0 0 0-5.487 0A12.6 12.6 0 0 0 9.182 3a19.74 19.74 0 0 0-4.435 1.372C1.98 8.146 1.24 11.84 1.61 15.482a19.9 19.9 0 0 0 5.993 3.03c.483-.66.913-1.36 1.283-2.098a12.9 12.9 0 0 1-2.021-.978c.17-.125.336-.256.497-.39a14.2 14.2 0 0 0 12.276 0c.163.134.328.265.497.39-.642.383-1.32.71-2.025.978.37.738.799 1.438 1.283 2.098a19.86 19.86 0 0 0 5.996-3.03c.436-4.22-.664-7.878-2.792-11.113ZM8.62 13.238c-.94 0-1.71-.864-1.71-1.927 0-1.064.755-1.928 1.71-1.928.963 0 1.727.872 1.71 1.928 0 1.063-.755 1.927-1.71 1.927Zm6.775 0c-.94 0-1.71-.864-1.71-1.927 0-1.064.755-1.928 1.71-1.928.963 0 1.727.872 1.71 1.928 0 1.063-.747 1.927-1.71 1.927Z"/></svg>
+            <span data-i18n="hero.cta.discord">Join Discord</span>
+          </a>
+          <a class="btn btn--ghost btn--ripple" href="developers.html">
+            <span data-i18n="hero.cta.developers">View Developers</span>
+            <svg viewBox="0 0 20 20" width="16" height="16" fill="none" aria-hidden="true"><path d="M4 10h12M12 5l5 5-5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="hero__scroll-cue" aria-hidden="true">
+        <span></span>
+      </div>
+    </section>
+
+    <!-- ===================== QUICK STATS ===================== -->
+    <section class="stats" aria-label="Clan statistics">
+      <div class="stats__grid">
+
+        <div class="stat-card" data-reveal>
+          <span class="stat-card__tag">// 01</span>
+          <span class="stat-card__value" data-count="2026">2026</span>
+          <span class="stat-card__label" data-i18n="stats.founded">Founded</span>
+        </div>
+
+        <div class="stat-card" data-reveal>
+          <span class="stat-card__tag">// 02</span>
+          <span class="stat-card__value" data-count-up data-count="150">0</span>
+          <span class="stat-card__label" data-i18n="stats.members">Active members</span>
+        </div>
+
+        <div class="stat-card" data-reveal>
+          <span class="stat-card__tag">// 03</span>
+          <span class="stat-card__value" data-count-up data-count="24">0</span>
+          <span class="stat-card__label" data-i18n="stats.ops">Ops per week</span>
+        </div>
+
+        <div class="stat-card" data-reveal>
+          <span class="stat-card__tag">// 04</span>
+          <span class="stat-card__value stat-card__value--live">
+            <span class="live-dot"></span>
+            <span data-i18n="stats.liveValue">Live</span>
+          </span>
+          <span class="stat-card__label" data-i18n="stats.status">Clan status</span>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ===================== WHY XRC ===================== -->
+    <section class="features">
+      <header class="section-head" data-reveal>
+        <span class="eyebrow" data-i18n="features.eyebrow">Why XRC</span>
+        <h2 data-i18n="features.title">Built for players who play to win</h2>
+      </header>
+
+      <div class="features__grid">
+        <article class="feature-card" data-reveal>
+          <div class="feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6l8-4Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 data-i18n="features.competitive.title">Competitive first</h3>
+          <p data-i18n="features.competitive.body">Ranked scrims, structured practice and a roster held to a real standard.</p>
+        </article>
+
+        <article class="feature-card" data-reveal>
+          <div class="feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M17 20v-2a4 4 0 0 0-4-4H7a4 4 0 0 0-4 4v2M9 10a4 4 0 1 0 0-8 4 4 0 0 0 0 8Zm8 10v-2a4 4 0 0 0-3-3.87M15 2.13a4 4 0 0 1 0 7.75" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 data-i18n="features.community.title">Real community</h3>
+          <p data-i18n="features.community.body">A Discord that feels less like a server and more like a squad.</p>
+        </article>
+
+        <article class="feature-card" data-reveal>
+          <div class="feature-card__icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none"><path d="M13 2 3 14h7l-1 8 10-12h-7l1-8Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          </div>
+          <h3 data-i18n="features.growth.title">Always improving</h3>
+          <p data-i18n="features.growth.body">VOD reviews, coaching and clear paths from trial to core roster.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ===================== CTA BAND ===================== -->
+    <section class="cta-band">
+      <div class="cta-band__inner" data-reveal>
+        <h2 data-i18n="cta.title">Think you've got what it takes?</h2>
+        <p data-i18n="cta.subtitle">Trials open every week. Bring your aim, bring your discipline.</p>
+        <a class="btn btn--primary btn--ripple" href="https://discord.gg/your-invite" target="_blank" rel="noopener noreferrer">
+          <span data-i18n="cta.button">Join the clan</span>
+        </a>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================== FOOTER ===================== -->
+  <footer class="site-footer">
+    <div class="site-footer__inner">
+      <div class="site-footer__brand">
+        <img src="assets/logo.png" alt="XRC crest" class="site-footer__logo">
+        <div>
+          <span class="site-footer__name">XRC</span>
+          <span class="site-footer__tag" data-i18n="footer.tag">Rivals Clan · Est. 2026</span>
+        </div>
+      </div>
+
+      <nav class="site-footer__links" aria-label="Footer">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="status.html" data-i18n="nav.status">Clan Status</a>
+        <a href="developers.html" data-i18n="nav.developers">Developers</a>
+        <a href="announcements.html" data-i18n="nav.announcements">Announcements</a>
+        <a href="about.html" data-i18n="nav.about">About Us</a>
+      </nav>
+
+      <p class="site-footer__copy">&copy; <span id="year"></span> XRC. <span data-i18n="footer.rights">Not affiliated with Roblox Corporation.</span></p>
+    </div>
+  </footer>
+
+  <script src="js/script.js" defer></script>
+</body>
+</html>
