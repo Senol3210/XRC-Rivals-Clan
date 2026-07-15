@@ -13,7 +13,7 @@
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
         @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(113, 255, 155, 0); } 100% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0); } }
         .navbar { position: fixed; top: 0; width: 100%; background: rgba(11, 11, 11, 0.9); border-bottom: 1px solid #222; display: flex; justify-content: center; align-items: center; gap: 20px; padding: 18px; z-index: 1000; }
-        .navbar a, .navbar span { color: #ddd; text-decoration: none; font-weight: bold; position: relative; transition: 0.3s; }
+        .navbar a, .navbar span { color: #ddd; text-decoration: none; font-weight: bold; position: relative; transition: 0.3s; cursor: pointer; }
         .navbar a::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--accent-green); transition: 0.3s; }
         .navbar a:hover::after { width: 100%; }
         .container { max-width: 900px; margin: auto; padding: 150px 20px; text-align: center; }
@@ -30,30 +30,55 @@
         body.light-mode .navbar, body.light-mode .section, body.light-mode #annText, body.light-mode #aboutText, body.light-mode #statusText { background: #fff !important; color: #111 !important; border: 1px solid #ccc !important; }
         body.light-mode .navbar a, body.light-mode .navbar span { color: #000 !important; }
         body.light-mode #navActive { color: var(--accent-blue) !important; }
+        body.light-mode .popup-content { background: #fff !important; color: #111 !important; border: 1px solid #ccc !important; }
+        body.light-mode .popup-content input, body.light-mode .popup-content select { background: #eee !important; color: #111 !important; border: 1px solid #ccc !important; }
         
         body.midnight-mode{color:#dbe8ff;background:radial-gradient(circle at center,#16213e,#0f172a,#020617);}
         body.midnight-mode .navbar,body.midnight-mode .section,body.midnight-mode #annText,body.midnight-mode #aboutText,body.midnight-mode #statusText{background:#0b1220!important;color:#dbe8ff!important;border-color:#1e3a5f!important;}
+        body.midnight-mode .popup-content { background: #0b1220 !important; color: #dbe8ff !important; border-color: #1e3a5f !important; }
+        body.midnight-mode .popup-content input, body.midnight-mode .popup-content select { background: #16213e !important; color: #dbe8ff !important; border-color: #1e3a5f !important; }
         
         body.skyblue-mode{color:#083344;background:radial-gradient(circle at center,#dbeafe,#bae6fd,#7dd3fc);}
         body.skyblue-mode .navbar,body.skyblue-mode .section,body.skyblue-mode #annText,body.skyblue-mode #aboutText,body.skyblue-mode #statusText{background:#e0f2fe!important;color:#083344!important;border-color:#38bdf8!important;}
         body.skyblue-mode .navbar a, body.skyblue-mode .navbar span { color: #000 !important; }
         body.skyblue-mode #navActive { color: var(--accent-blue) !important; }
+        body.skyblue-mode .popup-content { background: #e0f2fe !important; color: #083344 !important; border-color: #38bdf8 !important; }
+        body.skyblue-mode .popup-content input, body.skyblue-mode .popup-content select { background: #bae6fd !important; color: #083344 !important; border-color: #38bdf8 !important; }
 
         body.pink-mode{color:#831843;background:radial-gradient(circle at center,#fce7f3,#fbcfe8,#f9a8d4);}
         body.pink-mode .navbar,body.pink-mode .section,body.pink-mode #annText,body.pink-mode #aboutText,body.pink-mode #statusText{background:#fdf2f8!important;color:#831843!important;border-color:#ec4899!important;}
         body.pink-mode .navbar a, body.pink-mode .navbar span { color: #000 !important; }
         body.pink-mode #navActive { color: var(--accent-blue) !important; }
+        body.pink-mode .popup-content { background: #fdf2f8 !important; color: #831843 !important; border-color: #ec4899 !important; }
+        body.pink-mode .popup-content input, body.pink-mode .popup-content select { background: #fbcfe8 !important; color: #831843 !important; border-color: #ec4899 !important; }
 
         body.yellow-mode{color:#713f12;background:radial-gradient(circle at center,#fef9c3,#fde68a,#facc15);}
         body.yellow-mode .navbar,body.yellow-mode .section,body.yellow-mode #annText,body.yellow-mode #aboutText,body.yellow-mode #statusText{background:#fffbeb!important;color:#713f12!important;border-color:#eab308!important;}
         body.yellow-mode .navbar a, body.yellow-mode .navbar span { color: #000 !important; }
         body.yellow-mode #navActive { color: var(--accent-blue) !important; }
+        body.yellow-mode .popup-content { background: #fffbeb !important; color: #713f12 !important; border-color: #eab308 !important; }
+        body.yellow-mode .popup-content input, body.yellow-mode .popup-content select { background: #fde68a !important; color: #713f12 !important; border-color: #eab308 !important; }
+
+        /* Popup Stil Düzenlemeleri */
+        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 2000; justify-content: center; align-items: center; }
+        .popup-content { background: #0f0f0f; border: 2px solid #333; padding: 30px; border-radius: 20px; width: 90%; max-width: 450px; position: relative; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .popup-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #888; transition: 0.3s; }
+        .popup-close:hover { color: white; }
+        .popup-content h3 { margin-bottom: 20px; text-align: center; }
+        .popup-field { margin-bottom: 15px; }
+        .popup-field label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
+        .popup-field input, .popup-field select { width: 100%; padding: 10px; background: #151515; border: 1px solid #333; border-radius: 8px; color: white; outline: none; transition: 0.3s; }
+        .popup-field input:focus, .popup-field select:focus { border-color: var(--accent-green); }
+        .popup-btn { width: 100%; padding: 12px; background: var(--accent-green); border: none; border-radius: 8px; color: black; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .popup-btn:hover { opacity: 0.9; transform: scale(1.02); }
+        .result-box { margin-top: 15px; padding: 15px; border-radius: 10px; background: #151515; display: none; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
 <nav class="navbar">
     <a href="#home" id="navHome">Home</a>
     <a href="#status" id="navStatus">Clan Status</a>
+    <a href="#" id="navJoinUs" onclick="openPopup(event)">Apply to Clan</a>
     <a href="#developers" id="navDev">Developers</a>
     <a href="#announcements" id="navAnn">Announcements</a>
     <a href="#about" id="navAbout">About Us</a>
@@ -104,7 +129,7 @@
 
     <div class="section" id="announcements">
         <h2 id="annTitle">Announcements</h2>
-        <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">🚀 v0.038 Update<br>✅ Added 6 new languages (ES, IT, PT, RU, JA, ZH)</div>
+        <div id="annText" style="margin-top:20px; text-align:left; background:#151515; padding:20px; border-radius:10px;">🚀 v0.040 Update<br>✅ Added Clan Application popup form<br>✅ Added automated recruitment algorithm (Winrate, Rank, and Level check)<br>✅ Added multi-language translations for recruitment process</div>
     </div>
 
     <div class="section" id="about">
@@ -115,41 +140,192 @@
     <footer id="footerText" style="margin-top: 50px; color: #555; font-size: 0.9em;">&copy; 2026 XRC | Rivals Clan. All rights reserved.</footer>
 </div>
 
+<!-- Popup Alanı -->
+<div class="popup-overlay" id="popupOverlay" onclick="closePopup(event)">
+    <div class="popup-content" onclick="event.stopPropagation()">
+        <span class="popup-close" onclick="closePopup(event)">&times;</span>
+        <h3 id="popTitle">Apply to XRC</h3>
+        
+        <div class="popup-field">
+            <label id="lblWinrate">Win Rate</label>
+            <select id="popWinrate">
+                <option value="high" id="optWinHigh">50% or More (50%+)</option>
+                <option value="low" id="optWinLow">Less than 50% (<50%)</option>
+            </select>
+        </div>
+
+        <div class="popup-field">
+            <label id="lblRank">Rank</label>
+            <select id="popRank">
+                <option value="bronze">Bronze</option>
+                <option value="silver">Silver</option>
+                <option value="gold">Gold</option>
+                <option value="platinum">Platinum</option>
+                <option value="diamond">Diamond</option>
+                <option value="onyx">Onyx</option>
+                <option value="nemesis">Nemesis</option>
+            </select>
+        </div>
+
+        <div class="popup-field">
+            <label id="lblLevel">Level</label>
+            <input type="number" id="popLevel" placeholder="e.g. 270" min="1">
+        </div>
+
+        <button class="popup-btn" id="popBtn" onclick="checkEligibility()">Check Eligibility</button>
+
+        <div class="result-box" id="resultBox">
+            <p id="resultText"></p>
+            <a href="https://discord.gg/2dE9NAVHeb" target="_blank" class="join-btn" id="popJoinBtn" style="display:none; margin-top:15px; width:100%;">Join Discord</a>
+        </div>
+    </div>
+</div>
+
 <script>
 fetch('https://discord.com/api/guilds/1513976181056082061/widget.json')
     .then(response => response.json())
     .then(data => { document.getElementById('navActive').innerText = 'Active: ' + data.presence_count; })
     .catch(() => { document.getElementById('navActive').innerText = 'Active: -'; });
 
-const annTextContent = "🚀 v0.038 Update<br>✅ Added 6 new languages (ES, IT, PT, RU, JA, ZH)";
+const annTextContent = "🚀 v0.040 Update<br>✅ Added Clan Application popup form<br>✅ Added automated recruitment algorithm (Winrate, Rank, and Level check)<br>✅ Added multi-language translations for recruitment process";
 
 const translations = {
-    en: { navHome: "Home", navStatus: "Clan Status", navDev: "Developers", navAnn: "Announcements", navAbout: "About Us", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: annTextContent, aboutTitle: "About Us", aboutText: "XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.", statusTitle: "Clan Status", statusText: "🟢 Training & Active", footerText: "&copy; 2026 XRC | Rivals Clan. All rights reserved.", optDark: "Dark", optLight: "Light", optMidnight: "Midnight", optSkyblue: "Sky Blue", optPink: "Pink", optYellow: "Yellow" },
-    tr: { navHome: "Ana Sayfa", navStatus: "Klan Durumu", navDev: "Geliştiriciler", navAnn: "Duyurular", navAbout: "Hakkımızda", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.038 Güncellemesi<br>✅ 6 yeni dil eklendi (ES, IT, PT, RU, JA, ZH)", aboutTitle: "Hakkımızda", aboutText: "XRC, takım çalışmasına, aktiviteye ve gelişime odaklanmış rekabetçi bir Rivals klanıdır.<br><br>Amacımız, oyuncuların birlikte gelişebileceği, klan etkinliklerine katılabileceği ve XRC'yi gururla temsil edebileceği arkadaş canlısı ama yetenekli bir topluluk oluşturmaktır.<br><br>2026 yılında kuruldu.", statusTitle: "Klan Durumu", statusText: "🟢 Antrenman ve Aktif", footerText: "&copy; 2026 XRC | Rivals Klanı. Tüm hakları saklıdır.", optDark: "Koyu", optLight: "Açık", optMidnight: "Gece Yarısı", optSkyblue: "Gök Mavisi", optPink: "Pembe", optYellow: "Sarı" },
-    fr: { navHome: "Accueil", navStatus: "État du Clan", navDev: "Développeurs", navAnn: "Annonces", navAbout: "À Propos", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.038<br>✅ 6 nouvelles langues ajoutées (ES, IT, PT, RU, JA, ZH)", aboutTitle: "À Propos", aboutText: "XRC est un clan Rivals compétitif axé sur le travail d'équipe, l'activité et l'amélioration.<br><br>Notre objectif est de bâtir une communauté amicale mais qualifiée où les joueurs peuvent s'améliorer ensemble, participer à des événements de clan et représenter XRC avec fierté.<br><br>Fondé en 2026.", statusTitle: "État du Clan", statusText: "🟢 Entraînement et Actif", footerText: "&copy; 2026 XRC | Rivals Clan. Tous droits réservés.", optDark: "Sombre", optLight: "Clair", optMidnight: "Minuit", optSkyblue: "Bleu Ciel", optPink: "Rose", optYellow: "Jaune" },
-    de: { navHome: "Startseite", navStatus: "Clan-Status", navDev: "Entwickler", navAnn: "Ankündigungen", navAbout: "Über Uns", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.038 Update<br>✅ 6 neue Sprachen hinzugefügt (ES, IT, PT, RU, JA, ZH)", aboutTitle: "Über Uns", aboutText: "XRC ist ein kompetitiver Rivals-Clan, der sich auf Teamwork, Aktivität und Verbesserung konzentriert.<br><br>Unser Ziel ist es, eine freundliche, aber qualifizierte Community aufzubauen, in der sich Spieler gemeinsam verbessern, an Clan-Events teilnehmen und XRC mit Stolz repräsentieren können.<br><br>Gegründet im Jahr 2026.", statusTitle: "Clan-Status", statusText: "🟢 Training und Aktiv", footerText: "&copy; 2026 XRC | Rivals Clan. Alle Rechte vorbehalten.", optDark: "Dunkel", optLight: "Hell", optMidnight: "Mitternacht", optSkyblue: "Himmelblau", optPink: "Rosa", optYellow: "Gelb" },
-    es: { navHome: "Inicio", navStatus: "Estado del Clan", navDev: "Desarrolladores", navAnn: "Anuncios", navAbout: "Sobre nosotros", navActive: "Activo", recruiting: "🟢 Reclutamiento Abierto", title: "XRC | Rivals Clan", subtitle: "Comunidad Oficial de Rivals Clan", desc: "Únete a XRC y forma parte de nuestra creciente comunidad Rivals.", joinBtn: "Unirse a Discord", devTitle: "Desarrolladores", ownerRole: "Propietario y Fundador", annTitle: "Anuncios", annText: "🚀 Actualización v0.038<br>✅ 6 nuevos idiomas añadidos (ES, IT, PT, RU, JA, ZH)", aboutTitle: "Sobre nosotros", aboutText: "XRC es un clan competitivo de Rivals enfocado en el trabajo en equipo, la actividad y la mejora.<br><br>Nuestro objetivo es construir una comunidad amigable pero calificada donde los jugadores puedan mejorar juntos, participar en eventos del clan y representar a XRC con orgullo.<br><br>Fundado en 2026.", statusTitle: "Estado del Clan", statusText: "🟢 Entrenamiento y Activo", footerText: "&copy; 2026 XRC | Rivals Clan. Todos los derechos reservados.", optDark: "Oscuro", optLight: "Claro", optMidnight: "Medianoche", optSkyblue: "Azul Cielo", optPink: "Rosa", optYellow: "Amarillo" },
-    it: { navHome: "Home", navStatus: "Stato del Clan", navDev: "Sviluppatori", navAnn: "Annunci", navAbout: "Chi Siamo", navActive: "Attivo", recruiting: "🟢 Reclutamento Aperto", title: "XRC | Rivals Clan", subtitle: "Community Ufficiale Rivals Clan", desc: "Unisciti a XRC e diventa parte della nostra community in crescita.", joinBtn: "Unisciti a Discord", devTitle: "Sviluppatori", ownerRole: "Proprietario e Fondatore", annTitle: "Annunci", annText: "🚀 Aggiornamento v0.038<br>✅ 6 nuove lingue aggiunte (ES, IT, PT, RU, JA, ZH)", aboutTitle: "Chi Siamo", aboutText: "XRC è un clan competitivo di Rivals focalizzato sul lavoro di squadra, l'attività e il miglioramento.<br><br>Il nostro obiettivo è costruire una community amichevole ma qualificata dove i giocatori possano migliorare insieme, partecipare agli eventi del clan e rappresentare XRC con orgoglio.<br><br>Fondato nel 2026.", statusTitle: "Stato del Clan", statusText: "🟢 Allenamento e Attivo", footerText: "&copy; 2026 XRC | Rivals Clan. Tutti i diritti riservati.", optDark: "Scuro", optLight: "Chiaro", optMidnight: "Mezzanotte", optSkyblue: "Celeste", optPink: "Rosa", optYellow: "Giallo" },
-    pt: { navHome: "Início", navStatus: "Status do Clã", navDev: "Desenvolvedores", navAnn: "Anúncios", navAbout: "Sobre Nós", navActive: "Ativo", recruiting: "🟢 Recrutamento Aberto", title: "XRC | Rivals Clan", subtitle: "Comunidade Oficial Rivals Clan", desc: "Junte-se ao XRC e faça parte da nossa comunidade Rivals em crescimento.", joinBtn: "Entrar no Discord", devTitle: "Desenvolvedores", ownerRole: "Proprietário e Fundador", annTitle: "Anúncios", annText: "🚀 Atualização v0.038<br>✅ 6 novos idiomas adicionados (ES, IT, PT, RU, JA, ZH)", aboutTitle: "Sobre Nós", aboutText: "O XRC é um clã competitivo de Rivals focado em trabalho em equipe, atividade e melhoria.<br><br>Nosso objetivo é construir uma comunidade amigável e qualificada, onde os jogadores possam melhorar juntos, participar de eventos do clã e representar o XRC com orgulho.<br><br>Fundado em 2026.", statusTitle: "Status do Clã", statusText: "🟢 Treinamento e Ativo", footerText: "&copy; 2026 XRC | Rivals Clan. Todos os direitos reservados.", optDark: "Escuro", optLight: "Claro", optMidnight: "Meia-noite", optSkyblue: "Azul Céu", optPink: "Rosa", optYellow: "Amarelo" },
-    ru: { navHome: "Главная", navStatus: "Статус Клана", navDev: "Разработчики", navAnn: "Объявления", navAbout: "О Нас", navActive: "Активен", recruiting: "🟢 Набор Открыт", title: "XRC | Rivals Clan", subtitle: "Официальное сообщество Rivals Clan", desc: "Присоединяйтесь к XRC и станьте частью нашего растущего сообщества Rivals.", joinBtn: "Присоединиться к Discord", devTitle: "Разработчики", ownerRole: "Владелец и Основатель", annTitle: "Объявления", annText: "🚀 Обновление v0.038<br>✅ Добавлено 6 новых языков (ES, IT, PT, RU, JA, ZH)", aboutTitle: "О Нас", aboutText: "XRC — это соревновательный клан Rivals, сосредоточенный на командной работе, активности и улучшении навыков.<br><br>Наша цель — создать дружелюбное, но квалифицированное сообщество, где игроки могут совершенствоваться вместе, участвовать в событиях клана и с гордостью представлять XRC.<br><br>Основан в 2026 году.", statusTitle: "Статус Клана", statusText: "🟢 Тренировка и Активен", footerText: "&copy; 2026 XRC | Rivals Clan. Все права защищены.", optDark: "Темный", optLight: "Светлый", optMidnight: "Полночь", optSkyblue: "Небесно-голубой", optPink: "Розовый", optYellow: "Желтый" },
-    ja: { navHome: "ホーム", navStatus: "クラン状況", navDev: "開発者", navAnn: "お知らせ", navAbout: "私たちについて", navActive: "アクティブ", recruiting: "🟢 メンバー募集中", title: "XRC | Rivals Clan", subtitle: "公式Rivalsクランコミュニティ", desc: "XRCに参加して、成長するRivalsコミュニティの一員になりましょう。", joinBtn: "Discordに参加", devTitle: "開発者", ownerRole: "オーナー兼創設者", annTitle: "お知らせ", annText: "🚀 v0.038アップデート<br>✅ 6つの新しい言語を追加しました (ES, IT, PT, RU, JA, ZH)", aboutTitle: "私たちについて", aboutText: "XRCは、チームワーク、活動性、そして向上心に焦点を当てた競技的なRivalsクランです。<br><br>私たちの目標は、プレイヤーが共に成長し、クランイベントに参加し、XRCを誇りを持って代表できる、フレンドリーで熟練したコミュニティを築くことです。<br><br>2026年設立。", statusTitle: "クラン状況", statusText: "🟢 トレーニング中・アクティブ", footerText: "&copy; 2026 XRC | Rivals Clan. 無断転載を禁じます。", optDark: "ダーク", optLight: "ライト", optMidnight: "ミッドナイト", optSkyblue: "スカイブルー", optPink: "ピンク", optYellow: "イエロー" },
-    zh: { navHome: "首页", navStatus: "部落状态", navDev: "开发者", navAnn: "公告", navAbout: "关于我们", navActive: "活跃", recruiting: "🟢 正在招募", title: "XRC | Rivals Clan", subtitle: "官方Rivals部落社区", desc: "加入XRC，成为我们不断壮大的Rivals社区的一员。", joinBtn: "加入Discord", devTitle: "开发者", ownerRole: "创始人兼所有者", annTitle: "公告", annText: "🚀 v0.038更新<br>✅ 新增6种语言 (ES, IT, PT, RU, JA, ZH)", aboutTitle: "关于我们", aboutText: "XRC是一个竞争性的Rivals部落，专注于团队合作、活动和技能提升。<br><br>我们的目标是建立一个友好且技术精湛的社区，让玩家可以共同进步、参加部落活动并自豪地代表XRC。<br><br>成立于2026年。", statusTitle: "部落状态", statusText: "🟢 训练中且活跃", footerText: "&copy; 2026 XRC | Rivals Clan. 版权所有。", optDark: "深色", optLight: "浅色", optMidnight: "午夜", optSkyblue: "天蓝", optPink: "粉红", optYellow: "黄色" }
+    en: { 
+        navHome: "Home", navStatus: "Clan Status", navJoinUs: "Apply to Clan", navDev: "Developers", navAnn: "Announcements", navAbout: "About Us", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: annTextContent, aboutTitle: "About Us", aboutText: "XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.", statusTitle: "Clan Status", statusText: "🟢 Training & Active", footerText: "&copy; 2026 XRC | Rivals Clan. All rights reserved.", optDark: "Dark", optLight: "Light", optMidnight: "Midnight", optSkyblue: "Sky Blue", optPink: "Pink", optYellow: "Yellow",
+        popTitle: "Apply to XRC", lblWinrate: "Win Rate", optWinHigh: "50% or More (50%+)", optWinLow: "Less than 50% (<50%)", lblRank: "Rank", lblLevel: "Level", popBtn: "Check Eligibility",
+        msgSuccess: "You are absolutely accepted! You can join our server from here.", msgMaybe: "You might be accepted! Join our community to try your chance.", msgFail: "We are sorry, we cannot accept you as you don't meet our criteria."
+    },
+    tr: { 
+        navHome: "Ana Sayfa", navStatus: "Klan Durumu", navJoinUs: "Klana Başvur", navDev: "Geliştiriciler", navAnn: "Duyurular", navAbout: "Hakkımızda", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.040 Güncellemesi<br>✅ Klana Başvuru popup formu eklendi<br>✅ Otomatik alım kontrol algoritması eklendi (Winrate, Rank ve Level kontrolü)<br>✅ Başvuru süreci için çoklu dil çevirileri eklendi", aboutTitle: "Hakkımızda", aboutText: "XRC, takım çalışmasına, aktiviteye ve gelişime odaklanmış rekabetçi bir Rivals klanıdır.<br><br>Amacımız, oyuncuların birlikte gelişebileceği, klan etkinliklerine katılabileceği ve XRC'yi gururla temsil edebileceği arkadaş canlısı ama yetenekli bir topluluk oluşturmaktır.<br><br>2026 yılında kuruldu.", statusTitle: "Klan Durumu", statusText: "🟢 Antrenman ve Aktif", footerText: "&copy; 2026 XRC | Rivals Klanı. Tüm hakları saklıdır.", optDark: "Koyu", optLight: "Açık", optMidnight: "Gece Yarısı", optSkyblue: "Gök Mavisi", optPink: "Pembe", optYellow: "Sarı",
+        popTitle: "XRC Başvuru Formu", lblWinrate: "Kazanma Oranı (Win Rate)", optWinHigh: "%50 veya Daha Fazlası (50%+)", optWinLow: "%50'den Az (<50%)", lblRank: "Rütbe (Rank)", lblLevel: "Seviye (Level)", popBtn: "Katılabilirlik Kontrolü",
+        msgSuccess: "Kesinlikle alındın! Buradan sunucumuza katılabilirsin.", msgMaybe: "Alınabilirsin! Yine de şansını denemek için topluluğumuza katılabilirsin.", msgFail: "Üzgünüz, kriterleri tam karşılayamadığın için seni şu an aramıza alamayız."
+    },
+    fr: { 
+        navHome: "Accueil", navStatus: "État du Clan", navJoinUs: "Postuler", navDev: "Développeurs", navAnn: "Annonces", navAbout: "À Propos", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.040<br>✅ Formulaire popup de candidature ajouté<br>✅ Algorithme de recrutement automatisé<br>✅ Traductions multilingues ajoutées", aboutTitle: "À Propos", aboutText: "XRC est un clan Rivals compétitif axé sur le travail d'équipe, l'activité et l'amélioration.<br><br>Notre objectif est de bâtir une communauté amicale mais qualifiée où les joueurs peuvent s'améliorer ensemble, participer à des événements de clan et représenter XRC avec fierté.<br><br>Fondé en 2026.", statusTitle: "État du Clan", statusText: "🟢 Entraînement et Actif", footerText: "&copy; 2026 XRC | Rivals Clan. Tous droits réservés.", optDark: "Sombre", optLight: "Clair", optMidnight: "Minuit", optSkyblue: "Bleu Ciel", optPink: "Rose", optYellow: "Jaune",
+        popTitle: "Postuler à XRC", lblWinrate: "Taux de Victoire", optWinHigh: "50% ou plus (50%+)", optWinLow: "Moins de 50% (<50%)", lblRank: "Rang", lblLevel: "Niveau", popBtn: "Vérifier l'éligibilité",
+        msgSuccess: "Tu es absolument accepté ! Rejoins notre serveur ici.", msgMaybe: "Tu pourrais être accepté ! Tente ta chance en rejoignant notre communauté.", msgFail: "Désolé, tu ne remplis pas nos critères pour le moment."
+    },
+    de: { 
+        navHome: "Startseite", navStatus: "Clan-Status", navJoinUs: "Bewerben", navDev: "Entwickler", navAnn: "Ankündigungen", navAbout: "Über Uns", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.040 Update<br>✅ Bewerbungs-Popup-Formular hinzugefügt<br>✅ Automatisierter Rekrutierungsalgorithmus<br>✅ Mehrsprachige Übersetzungen hinzugefügt", aboutTitle: "Über Uns", aboutText: "XRC is ein kompetitiver Rivals-Clan, der sich auf Teamwork, Aktivität und Verbesserung konzentriert.<br><br>Unser Ziel ist es, eine freundliche, aber qualifizierte Community aufzubauen, in der sich Spieler gemeinsam verbessern, an Clan-Events teilnehmen und XRC mit Stolz repräsentieren können.<br><br>Gegründet im Jahr 2026.", statusTitle: "Clan-Status", statusText: "🟢 Training und Aktiv", footerText: "&copy; 2026 XRC | Rivals Clan. Alle Rechte vorbehalten.", optDark: "Dunkel", optLight: "Hell", optMidnight: "Mitternacht", optSkyblue: "Himmelblau", optPink: "Rosa", optYellow: "Gelb",
+        popTitle: "Bewerben bei XRC", lblWinrate: "Winrate", optWinHigh: "50% oder mehr (50%+)", optWinLow: "Weniger als 50% (<50%)", lblRank: "Rang", lblLevel: "Level", popBtn: "Berechtigung prüfen",
+        msgSuccess: "Du bist absolut angenommen! Tritt unserem Server hier bei.", msgMaybe: "Du könntest angenommen werden! Tritt bei, um dein Glück zu versuchen.", msgFail: "Tut uns leid, du erfüllst unsere Kriterien derzeit nicht."
+    },
+    es: { 
+        navHome: "Inicio", navStatus: "Estado del Clan", navJoinUs: "Postularse", navDev: "Desarrolladores", navAnn: "Anuncios", navAbout: "Sobre nosotros", navActive: "Activo", recruiting: "🟢 Reclutamiento Abierto", title: "XRC | Rivals Clan", subtitle: "Comunidad Oficial de Rivals Clan", desc: "Únete a XRC y forma parte de nuestra creciente comunidad Rivals.", joinBtn: "Unirse a Discord", devTitle: "Desarrolladores", ownerRole: "Propietario y Fundador", annTitle: "Anuncios", annText: "🚀 Actualización v0.040<br>✅ Formulario de postulación añadido<br>✅ Algoritmo de reclutamiento automático<br>✅ Traducciones añadidas", aboutTitle: "Sobre nosotros", aboutText: "XRC es un clan competitivo de Rivals enfocado en el trabajo en equipo, la actividad y la mejora.<br><br>Nuestro objetivo es construir una comunidad amigable pero calificada donde los jugadores puedan mejorar juntos, participar en eventos del clan y representar a XRC con orgullo.<br><br>Fundado en 2026.", statusTitle: "Estado del Clan", statusText: "🟢 Entrenamiento y Activo", footerText: "&copy; 2026 XRC | Rivals Clan. Todos los derechos reservados.", optDark: "Oscuro", optLight: "Claro", optMidnight: "Medianoche", optSkyblue: "Azul Cielo", optPink: "Rosa", optYellow: "Amarillo",
+        popTitle: "Postularse a XRC", lblWinrate: "Win Rate", optWinHigh: "50% o más (50%+)", optWinLow: "Menos de 50% (<50%)", lblRank: "Rango", lblLevel: "Nivel", popBtn: "Comprobar Elegibilidad",
+        msgSuccess: "¡Estás absolutamente aceptado! Únete a nuestro servidor aquí.", msgMaybe: "¡Podrías ser aceptado! Únete a la comunidad para probar tu suerte.", msgFail: "Lo sentimos, no cumples con los criterios para unirte en este momento."
+    },
+    it: { 
+        navHome: "Home", navStatus: "Stato del Clan", navJoinUs: "Candidati", navDev: "Sviluppatori", navAnn: "Annunci", navAbout: "Chi Siamo", navActive: "Attivo", recruiting: "🟢 Reclutamento Aperto", title: "XRC | Rivals Clan", subtitle: "Community Ufficiale Rivals Clan", desc: "Unisciti a XRC e diventa parte della nostra community in crescita.", joinBtn: "Unisciti a Discord", devTitle: "Sviluppatori", ownerRole: "Proprietario e Fondatore", annTitle: "Annunci", annText: "🚀 Aggiornamento v0.040<br>✅ Modulo popup candidatura aggiunto<br>✅ Algoritmo di reclutamento automatico<br>✅ Traduzioni aggiunte", aboutTitle: "Chi Siamo", aboutText: "XRC è un clan competitivo di Rivals focalizzato sul lavoro di squadra, l'attività e il miglioramento.<br><br>Il nostro obiettivo è costruire una community amichevole ma qualificata dove i giocatori possano migliorare insieme, partecipare agli eventi del clan e rappresentare XRC con orgoglio.<br><br>Fondato nel 2026.", statusTitle: "Stato del Clan", statusText: "🟢 Allenamento e Attivo", footerText: "&copy; 2026 XRC | Rivals Clan. Tutti i diritti riservati.", optDark: "Scuro", optLight: "Chiaro", optMidnight: "Mezzanotte", optSkyblue: "Celeste", optPink: "Rosa", optYellow: "Giallo",
+        popTitle: "Candidati a XRC", lblWinrate: "Win Rate", optWinHigh: "50% o più (50%+)", optWinLow: "Meno di 50% (<50%)", lblRank: "Grado", lblLevel: "Livello", popBtn: "Verifica Idoneità",
+        msgSuccess: "Sei assolutamente accettato! Entra nel nostro server da qui.", msgMaybe: "Potresti essere accettato! Unisciti per tentare la fortuna.", msgFail: "Ci dispiace, al momento non soddisfi i criteri richiesti."
+    },
+    pt: { 
+        navHome: "Início", navStatus: "Status do Clã", navJoinUs: "Candidatar-se", navDev: "Desenvolvedores", navAnn: "Anúncios", navAbout: "Sobre Nós", navActive: "Ativo", recruiting: "🟢 Recrutamento Aberto", title: "XRC | Rivals Clan", subtitle: "Comunidade Oficial Rivals Clan", desc: "Junte-se ao XRC e faça parte da nossa comunidade Rivals em crescimento.", joinBtn: "Entrar no Discord", devTitle: "Desenvolvedores", ownerRole: "Proprietário e Fundador", annTitle: "Anúncios", annText: "🚀 Atualização v0.040<br>✅ Formulário popup de candidatura adicionado<br>✅ Algoritmo de recrutamento automático<br>✅ Traduções adicionadas", aboutTitle: "Sobre Nós", aboutText: "O XRC é um clã competitivo de Rivals focado em trabalho em equipe, atividade e melhoria.<br><br>Nosso objetivo é construir uma comunidade amigável e qualificada, onde os jogadores possam melhorar juntos, participar de eventos do clã e representar o XRC com orgulho.<br><br>Fundado em 2026.", statusTitle: "Status do Clã", statusText: "🟢 Treinamento e Ativo", footerText: "&copy; 2026 XRC | Rivals Clan. Todos os direitos reservados.", optDark: "Escuro", optLight: "Claro", optMidnight: "Meia-noite", optSkyblue: "Azul Céu", optPink: "Rosa", optYellow: "Amarelo",
+        popTitle: "Candidatar-se ao XRC", lblWinrate: "Taxa de Vitória", optWinHigh: "50% ou mais (50%+)", optWinLow: "Menos de 50% (<50%)", lblRank: "Rank", lblLevel: "Nível", popBtn: "Verificar Elegibilidade",
+        msgSuccess: "Você foi absolutamente aceito! Entre no nosso servidor por aqui.", msgMaybe: "Você pode ser aceito! Entre para tentar a sua sorte.", msgFail: "Desculpe, você não atende aos nossos critérios no momento."
+    },
+    ru: { 
+        navHome: "Главная", navStatus: "Статус Клана", navJoinUs: "Вступить", navDev: "Разработчики", navAnn: "Объявления", navAbout: "О Нас", navActive: "Активен", recruiting: "🟢 Набор Открыт", title: "XRC | Rivals Clan", subtitle: "Официальное сообщество Rivals Clan", desc: "Присоединяйтесь к XRC и станьте частью нашего растущего сообщества Rivals.", joinBtn: "Присоединиться к Discord", devTitle: "Разработчики", ownerRole: "Владелец и Основатель", annTitle: "Объявления", annText: "🚀 Обновление v0.040<br>✅ Добавлено всплывающее окно заявки в клан<br>✅ Добавлен алгоритм автоматического набора<br>✅ Добавлены переводы для процесса подачи заявки", aboutTitle: "О Нас", aboutText: "XRC — это соревновательный клан Rivals, сосредоточенный на командной работе, активности и улучшении навыков.<br><br>Наша цель — создать дружелюбное, но квалифицированное сообщество, где игроки могут совершенствоваться вместе, участвовать в событиях клана и с гордостью представлять XRC.<br><br>Основан в 2026 году.", statusTitle: "Статус Клана", statusText: "🟢 Тренировка и Активен", footerText: "&copy; 2026 XRC | Rivals Clan. Все права защищены.", optDark: "Темный", optLight: "Светлый", optMidnight: "Полночь", optSkyblue: "Небесно-голубой", optPink: "Розовый", optYellow: "Желтый",
+        popTitle: "Вступить в XRC", lblWinrate: "Процент побед", optWinHigh: "50% или больше (50%+)", optWinLow: "Меньше 50% (<50%)", lblRank: "Ранг", lblLevel: "Уровень", popBtn: "Проверить пригодность",
+        msgSuccess: "Вы абсолютно приняты! Вы можете присоединиться к серверу здесь.", msgMaybe: "Возможно, вас примут! Присоединяйтесь, чтобы попытать удачу.", msgFail: "К сожалению, вы пока не соответствуете нашим критериям."
+    },
+    ja: { 
+        navHome: "ホーム", navStatus: "クラン状況", navJoinUs: "入隊申請", navDev: "開発者", navAnn: "お知らせ", navAbout: "私たちについて", navActive: "アクティブ", recruiting: "🟢 メンバー募集中", title: "XRC | Rivals Clan", subtitle: "公式Rivalsクランコミュニティ", desc: "XRCに参加して、成長するRivalsコミュニティの一員になりましょう。", joinBtn: "Discordに参加", devTitle: "開発者", ownerRole: "オーナー兼創設者", annTitle: "お知らせ", annText: "🚀 v0.040アップデート<br>✅ 入隊申請ポップアップを追加<br>✅ 自動選考アルゴリズムを追加<br>✅ 申請プロセスの多言語翻訳を追加", aboutTitle: "私たちについて", aboutText: "XRCは、チームワーク、活動性、...<br><br>2026年設立。", statusTitle: "クラン状況", statusText: "🟢 トレーニング中・アクティブ", footerText: "&copy; 2026 XRC | Rivals Clan. 無断転載を禁じます。", optDark: "ダーク", optLight: "ライト", optMidnight: "ミッドナイト", optSkyblue: "スカイブルー", optPink: "ピンク", optYellow: "イエロー",
+        popTitle: "XRCに入隊申請", lblWinrate: "勝率", optWinHigh: "50%以上 (50%+)", optWinLow: "50%未満 (<50%)", lblRank: "ランク", lblLevel: "レベル", popBtn: "参加資格をチェック",
+        msgSuccess: "合格です！こちらからサーバーに参加してください。", msgMaybe: "合格の可能性があります！参加してチャンスを試してみましょう。", msgFail: "申し訳ありません。現時点では条件を満たしていません。"
+    },
+    zh: { 
+        navHome: "首页", navStatus: "部落状态", navJoinUs: "申请加入", navDev: "开发者", navAnn: "公告", navActive: "活跃", recruiting: "🟢 正在招募", title: "XRC | Rivals Clan", subtitle: "官方Rivals部落社区", desc: "加入XRC，成为我们不断壮大的Rivals社区的一员。", joinBtn: "加入Discord", devTitle: "开发者", ownerRole: "创始人兼所有者", annTitle: "公告", annText: "🚀 v0.040更新<br>✅ 新增申请加入弹窗表单<br>✅ 新增自动招募筛选算法<br>✅ 增加招募申请的多语言翻译", aboutTitle: "关于我们", aboutText: "XRC是一个竞争性的Rivals部落，专注于团队合作、活动和技能提升。<br><br>成立于2026年。", statusTitle: "部落状态", statusText: "🟢 训练中且活跃", footerText: "&copy; 2026 XRC | Rivals Clan. 版权所有。", optDark: "深色", optLight: "浅色", optMidnight: "午夜", optSkyblue: "天蓝", optPink: "粉红", optYellow: "黄色",
+        popTitle: "申请加入 XRC", lblWinrate: "胜率", optWinHigh: "50%或以上 (50%+)", optWinLow: "低于50% (<50%)", lblRank: "段位", lblLevel: "等级", popBtn: "检查是否符合资格",
+        msgSuccess: "你完全符合条件！从这里加入我们的服务器吧。", msgMaybe: "你可能被录取！加入社区来试试你的运气吧。", msgFail: "很抱歉，你目前未达到我们的招募标准。"
+    }
 };
 
+let currentLang = 'en';
+
 function changeLang(lang) { 
+    currentLang = lang;
     const t = translations[lang]; 
     for (let id in t) {
         if (id === 'navActive') {
-            const activeVal = document.getElementById('navActive').innerText.split(': ')[1];
+            const activeVal = document.getElementById('navActive').innerText.split(': ')[1] || 'Loading...';
             document.getElementById('navActive').innerText = t[id] + ': ' + activeVal;
         } else if (document.getElementById(id)) {
             document.getElementById(id).innerHTML = t[id]; 
         }
     }
+    // Temizleme: Eğer popup açıksa sonuç kutusunu sıfırla
+    document.getElementById('resultBox').style.display = "none";
+    document.getElementById('popJoinBtn').style.display = "none";
 }
+
 function changeTheme(theme){
     document.body.classList.remove('light-mode','midnight-mode','skyblue-mode','pink-mode','yellow-mode');
     if(theme !== 'dark') document.body.classList.add(theme + '-mode');
+}
+
+/* Popup Fonksiyonları */
+function openPopup(e) {
+    if(e) e.preventDefault();
+    document.getElementById('popupOverlay').style.display = "flex";
+    document.getElementById('resultBox').style.display = "none";
+    document.getElementById('popJoinBtn').style.display = "none";
+    document.getElementById('popLevel').value = "";
+}
+
+function closePopup(e) {
+    if (e.target.id === "popupOverlay" || e.target.className === "popup-close") {
+        document.getElementById('popupOverlay').style.display = "none";
+    }
+}
+
+function checkEligibility() {
+    const winrate = document.getElementById('popWinrate').value;
+    const rank = document.getElementById('popRank').value;
+    const levelVal = parseInt(document.getElementById('popLevel').value);
+    
+    if (isNaN(levelVal) || levelVal <= 0) {
+        alert(currentLang === 'tr' ? "Lütfen geçerli bir seviye girin!" : "Please enter a valid level!");
+        return;
+    }
+
+    let score = 0;
+
+    // 1. Winrate kontrolü
+    if (winrate === "high") score++;
+
+    // 2. Rank kontrolü (Bronze ve Silver hariç diğerleri Silver 3'ten büyüktür)
+    const validRanks = ["gold", "platinum", "diamond", "onyx", "nemesis"];
+    if (validRanks.includes(rank)) score++;
+
+    // 3. Level kontrolü (270+)
+    if (levelVal >= 270) score++;
+
+    const resultBox = document.getElementById('resultBox');
+    const resultText = document.getElementById('resultText');
+    const popJoinBtn = document.getElementById('popJoinBtn');
+
+    resultBox.style.display = "block";
+
+    const t = translations[currentLang];
+
+    if (score === 3) {
+        // 3 kriter de tuttu
+        resultText.innerHTML = t.msgSuccess;
+        resultText.style.color = "var(--accent-green)";
+        popJoinBtn.style.display = "inline-block";
+    } else if (score === 2) {
+        // 2 kriter tuttu, 1'i tutmadı
+        resultText.innerHTML = t.msgMaybe;
+        resultText.style.color = "#ffaa00";
+        popJoinBtn.style.display = "inline-block";
+    } else {
+        // Sadece 1'i veya hiçbiri tutmadı
+        resultText.innerHTML = t.msgFail;
+        resultText.style.color = "#ff4444";
+        popJoinBtn.style.display = "none";
+    }
 }
 </script>
 
