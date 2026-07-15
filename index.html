@@ -5,80 +5,168 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XRC | Rivals Clan</title>
     <style>
-        :root { --bg-dark: #050505; --accent-green: #71ff9b; --accent-blue: #007bff; }
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root { 
+            --bg-dark: #050505; 
+            --accent-green: #71ff9b; 
+            --accent-blue: #007bff; 
+            --glow-color: rgba(113, 255, 155, 0.4);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Segoe UI', Arial, sans-serif; color: white; background: radial-gradient(circle at center, #2f2f2f, #111, #050505); background-size: 400% 400%; animation: gradientBG 15s ease infinite, fadeIn 1s ease forwards; opacity: 0; }
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         @keyframes fadeIn { to { opacity: 1; } }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-15px); } }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(113, 255, 155, 0); } 100% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0); } }
-        .navbar { position: fixed; top: 0; width: 100%; background: rgba(11, 11, 11, 0.9); border-bottom: 1px solid #222; display: flex; justify-content: center; align-items: center; gap: 20px; padding: 18px; z-index: 1000; }
-        .navbar a, .navbar span { color: #ddd; text-decoration: none; font-weight: bold; position: relative; transition: 0.3s; cursor: pointer; }
-        .navbar a::after { content: ''; position: absolute; left: 0; bottom: -5px; width: 0; height: 2px; background: var(--accent-green); transition: 0.3s; }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--glow-color); } 70% { box-shadow: 0 0 0 10px rgba(113, 255, 155, 0); } 100% { box-shadow: 0 0 0 0 rgba(113, 255, 155, 0); } }
+        
+        /* Geliştirilmiş Animasyonlu Navbar */
+        .navbar { 
+            position: fixed; 
+            top: 0; 
+            width: 100%; 
+            background: rgba(11, 11, 11, 0.85); 
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            gap: 20px; 
+            padding: 15px; 
+            z-index: 1000; 
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+        }
+        .navbar:hover {
+            background: rgba(15, 15, 15, 0.95);
+            border-bottom: 1px solid var(--accent-green);
+            box-shadow: 0 10px 30px var(--glow-color);
+        }
+        .navbar a, .navbar span { color: #ddd; text-decoration: none; font-weight: bold; position: relative; transition: all 0.3s ease; cursor: pointer; }
+        .navbar a::after { content: ''; position: absolute; left: 50%; bottom: -5px; width: 0; height: 2px; background: var(--accent-green); transition: all 0.3s ease; transform: translateX(-50%); }
+        .navbar a:hover { color: #fff; text-shadow: 0 0 8px var(--accent-green); }
         .navbar a:hover::after { width: 100%; }
+
+        /* Notch Stilinde Sağ Üst Apply Butonu (iPhone Dynamic Island Esintili) */
+        .notch-apply {
+            position: fixed;
+            top: 12px;
+            right: 25px;
+            background: #111;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            z-index: 1001;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 0 15px rgba(0,0,0,0.6);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .notch-apply::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent-green);
+            border-radius: 50%;
+            display: inline-block;
+            box-shadow: 0 0 8px var(--accent-green);
+            animation: pulse 1.5s infinite;
+        }
+        .notch-apply:hover {
+            transform: scale(1.08) translateY(2px);
+            background: var(--accent-green);
+            color: black;
+            border-color: var(--accent-green);
+            box-shadow: 0 0 25px var(--glow-color);
+        }
+        .notch-apply:hover::before {
+            background: black;
+            box-shadow: none;
+        }
+
         .container { max-width: 900px; margin: auto; padding: 150px 20px; text-align: center; }
         .logo { width: 180px; height: 180px; border-radius: 30px; animation: float 3s ease-in-out infinite; border: 2px solid #333; object-fit: cover; }
         .badge { display: inline-block; padding: 8px 18px; border-radius: 50px; background: #111; color: var(--accent-green); animation: pulse 2s infinite; font-weight: bold; font-size: 0.9em; border: 1px solid #222; }
         .section { background: #0f0f0f; padding: 40px; border-radius: 20px; margin-top: 50px; border: 1px solid #222; }
         .profile-card { display: inline-block; padding: 20px; border-radius: 20px; transition: 0.3s; border: 1px solid transparent; }
-        .profile-card:hover { border-color: var(--accent-green); box-shadow: 0 0 20px rgba(113, 255, 155, 0.2); }
+        .profile-card:hover { border-color: var(--accent-green); box-shadow: 0 0 20px var(--glow-color); }
         .profile { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; }
         .join-btn { display: inline-block; margin-top: 20px; padding: 15px 30px; background: #222; border-radius: 10px; color: white; text-decoration: none; font-weight: bold; transition: 0.3s; }
         .join-btn:hover { box-shadow: 0 0 20px rgba(255, 255, 255, 0.3); transform: scale(1.05); }
 
-        body.light-mode { color: #111; background: radial-gradient(circle at center, #ffffff, #e8e8e8, #dcdcdc); }
+        /* Tema Ayarları */
+        body.light-mode { color: #111; background: radial-gradient(circle at center, #ffffff, #e8e8e8, #dcdcdc); --glow-color: rgba(0, 123, 255, 0.3); }
         body.light-mode .navbar, body.light-mode .section, body.light-mode #annText, body.light-mode #aboutText, body.light-mode #statusText { background: #fff !important; color: #111 !important; border: 1px solid #ccc !important; }
         body.light-mode .navbar a, body.light-mode .navbar span { color: #000 !important; }
         body.light-mode #navActive { color: var(--accent-blue) !important; }
         body.light-mode .popup-content { background: #fff !important; color: #111 !important; border: 1px solid #ccc !important; }
         body.light-mode .popup-content input, body.light-mode .popup-content select { background: #eee !important; color: #111 !important; border: 1px solid #ccc !important; }
-        
-        body.midnight-mode{color:#dbe8ff;background:radial-gradient(circle at center,#16213e,#0f172a,#020617);}
+        body.light-mode .notch-apply { background: #fff; color: #000; border-color: #ccc; }
+        body.light-mode .navbar:hover { border-bottom-color: var(--accent-blue); }
+
+        body.midnight-mode{color:#dbe8ff;background:radial-gradient(circle at center,#16213e,#0f172a,#020617); --glow-color: rgba(0, 123, 255, 0.4);}
         body.midnight-mode .navbar,body.midnight-mode .section,body.midnight-mode #annText,body.midnight-mode #aboutText,body.midnight-mode #statusText{background:#0b1220!important;color:#dbe8ff!important;border-color:#1e3a5f!important;}
         body.midnight-mode .popup-content { background: #0b1220 !important; color: #dbe8ff !important; border-color: #1e3a5f !important; }
         body.midnight-mode .popup-content input, body.midnight-mode .popup-content select { background: #16213e !important; color: #dbe8ff !important; border-color: #1e3a5f !important; }
-        
-        body.skyblue-mode{color:#083344;background:radial-gradient(circle at center,#dbeafe,#bae6fd,#7dd3fc);}
+        body.midnight-mode .notch-apply { background: #0b1220; color: #dbe8ff; border-color: #1e3a5f; }
+        body.midnight-mode .navbar:hover { border-bottom-color: var(--accent-blue); }
+
+        body.skyblue-mode{color:#083344;background:radial-gradient(circle at center,#dbeafe,#bae6fd,#7dd3fc); --glow-color: rgba(0, 123, 255, 0.3);}
         body.skyblue-mode .navbar,body.skyblue-mode .section,body.skyblue-mode #annText,body.skyblue-mode #aboutText,body.skyblue-mode #statusText{background:#e0f2fe!important;color:#083344!important;border-color:#38bdf8!important;}
         body.skyblue-mode .navbar a, body.skyblue-mode .navbar span { color: #000 !important; }
         body.skyblue-mode #navActive { color: var(--accent-blue) !important; }
         body.skyblue-mode .popup-content { background: #e0f2fe !important; color: #083344 !important; border-color: #38bdf8 !important; }
         body.skyblue-mode .popup-content input, body.skyblue-mode .popup-content select { background: #bae6fd !important; color: #083344 !important; border-color: #38bdf8 !important; }
+        body.skyblue-mode .notch-apply { background: #e0f2fe; color: #083344; border-color: #38bdf8; }
+        body.skyblue-mode .navbar:hover { border-bottom-color: var(--accent-blue); }
 
-        body.pink-mode{color:#831843;background:radial-gradient(circle at center,#fce7f3,#fbcfe8,#f9a8d4);}
+        body.pink-mode{color:#831843;background:radial-gradient(circle at center,#fce7f3,#fbcfe8,#f9a8d4); --glow-color: rgba(236, 72, 153, 0.4);}
         body.pink-mode .navbar,body.pink-mode .section,body.pink-mode #annText,body.pink-mode #aboutText,body.pink-mode #statusText{background:#fdf2f8!important;color:#831843!important;border-color:#ec4899!important;}
         body.pink-mode .navbar a, body.pink-mode .navbar span { color: #000 !important; }
         body.pink-mode #navActive { color: var(--accent-blue) !important; }
         body.pink-mode .popup-content { background: #fdf2f8 !important; color: #831843 !important; border-color: #ec4899 !important; }
         body.pink-mode .popup-content input, body.pink-mode .popup-content select { background: #fbcfe8 !important; color: #831843 !important; border-color: #ec4899 !important; }
+        body.pink-mode .notch-apply { background: #fdf2f8; color: #831843; border-color: #ec4899; }
+        body.pink-mode .navbar:hover { border-bottom-color: #ec4899; }
 
-        body.yellow-mode{color:#713f12;background:radial-gradient(circle at center,#fef9c3,#fde68a,#facc15);}
+        body.yellow-mode{color:#713f12;background:radial-gradient(circle at center,#fef9c3,#fde68a,#facc15); --glow-color: rgba(234, 179, 8, 0.4);}
         body.yellow-mode .navbar,body.yellow-mode .section,body.yellow-mode #annText,body.yellow-mode #aboutText,body.yellow-mode #statusText{background:#fffbeb!important;color:#713f12!important;border-color:#eab308!important;}
         body.yellow-mode .navbar a, body.yellow-mode .navbar span { color: #000 !important; }
         body.yellow-mode #navActive { color: var(--accent-blue) !important; }
         body.yellow-mode .popup-content { background: #fffbeb !important; color: #713f12 !important; border-color: #eab308 !important; }
         body.yellow-mode .popup-content input, body.yellow-mode .popup-content select { background: #fde68a !important; color: #713f12 !important; border-color: #eab308 !important; }
+        body.yellow-mode .notch-apply { background: #fffbeb; color: #713f12; border-color: #eab308; }
+        body.yellow-mode .navbar:hover { border-bottom-color: #eab308; }
 
         /* Popup Stil Düzenlemeleri */
-        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.75); z-index: 2000; justify-content: center; align-items: center; }
-        .popup-content { background: #0f0f0f; border: 2px solid #333; padding: 30px; border-radius: 20px; width: 90%; max-width: 450px; position: relative; text-align: left; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .popup-close { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #888; transition: 0.3s; }
-        .popup-close:hover { color: white; }
-        .popup-content h3 { margin-bottom: 20px; text-align: center; }
-        .popup-field { margin-bottom: 15px; }
-        .popup-field label { display: block; margin-bottom: 5px; font-weight: bold; font-size: 0.9em; }
-        .popup-field input, .popup-field select { width: 100%; padding: 10px; background: #151515; border: 1px solid #333; border-radius: 8px; color: white; outline: none; transition: 0.3s; }
-        .popup-field input:focus, .popup-field select:focus { border-color: var(--accent-green); }
-        .popup-btn { width: 100%; padding: 12px; background: var(--accent-green); border: none; border-radius: 8px; color: black; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        .popup-btn:hover { opacity: 0.9; transform: scale(1.02); }
-        .result-box { margin-top: 15px; padding: 15px; border-radius: 10px; background: #151515; display: none; text-align: center; font-weight: bold; }
+        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 2000; justify-content: center; align-items: center; backdrop-filter: blur(5px); }
+        .popup-content { background: #0f0f0f; border: 2px solid #333; padding: 30px; border-radius: 20px; width: 90%; max-width: 450px; position: relative; text-align: left; box-shadow: 0 10px 40px rgba(0,0,0,0.8); transition: all 0.3s ease; }
+        .popup-close { position: absolute; top: 15px; right: 20px; font-size: 28px; cursor: pointer; color: #888; transition: 0.3s; }
+        .popup-close:hover { color: white; transform: rotate(90deg); }
+        .popup-content h3 { margin-bottom: 20px; text-align: center; font-size: 1.5em; letter-spacing: 1px; }
+        .popup-field { margin-bottom: 20px; }
+        .popup-field label { display: block; margin-bottom: 8px; font-weight: bold; font-size: 0.9em; letter-spacing: 0.5px; }
+        .popup-field input, .popup-field select { width: 100%; padding: 12px; background: #151515; border: 1px solid #333; border-radius: 8px; color: white; outline: none; transition: 0.3s; font-weight: 500; }
+        .popup-field input:focus, .popup-field select:focus { border-color: var(--accent-green); box-shadow: 0 0 10px var(--glow-color); }
+        
+        /* Rank Seçim Alanı ve İkonu */
+        .rank-select-container { display: flex; align-items: center; gap: 12px; }
+        .rank-icon-preview { width: 45px; height: 45px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,0.05); padding: 4px; border: 1px solid #333; transition: all 0.3s ease; }
+        
+        .popup-btn { width: 100%; padding: 14px; background: var(--accent-green); border: none; border-radius: 8px; color: black; font-weight: bold; cursor: pointer; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); margin-top: 10px; font-size: 1em; text-transform: uppercase; letter-spacing: 1px; }
+        .popup-btn:hover { opacity: 0.95; transform: translateY(-2px); box-shadow: 0 5px 15px var(--glow-color); }
+        .result-box { margin-top: 15px; padding: 15px; border-radius: 10px; background: #151515; display: none; text-align: center; font-weight: bold; border: 1px solid #222; }
     </style>
 </head>
 <body>
+
+<div class="notch-apply" id="notchApplyBtn" onclick="openPopup(event)">Apply to Clan</div>
+
 <nav class="navbar">
     <a href="#home" id="navHome">Home</a>
     <a href="#status" id="navStatus">Clan Status</a>
-    <a href="#" id="navJoinUs" onclick="openPopup(event)">Apply to Clan</a>
     <a href="#developers" id="navDev">Developers</a>
     <a href="#announcements" id="navAnn">Announcements</a>
     <a href="#about" id="navAbout">About Us</a>
@@ -149,22 +237,25 @@
         <div class="popup-field">
             <label id="lblWinrate">Win Rate</label>
             <select id="popWinrate">
-                <option value="high" id="optWinHigh">50% or More (50%+)</option>
-                <option value="low" id="optWinLow">Less than 50% (<50%)</option>
+                <!-- Javascript ile 100%'den 0%'e kadar dinamik doldurulacak -->
             </select>
         </div>
 
         <div class="popup-field">
             <label id="lblRank">Rank</label>
-            <select id="popRank">
-                <option value="bronze">Bronze</option>
-                <option value="silver">Silver</option>
-                <option value="gold">Gold</option>
-                <option value="platinum">Platinum</option>
-                <option value="diamond">Diamond</option>
-                <option value="onyx">Onyx</option>
-                <option value="nemesis">Nemesis</option>
-            </select>
+            <div class="rank-select-container">
+                <img src="Bronze.png" class="rank-icon-preview" id="rankIconPreview" alt="Rank">
+                <select id="popRank" onchange="updateRankIcon(this.value)" style="flex: 1;">
+                    <option value="Bronze">Bronze</option>
+                    <option value="Silver">Silver</option>
+                    <option value="Gold">Gold</option>
+                    <option value="Platinum">Platinum</option>
+                    <option value="Diamond">Diamond</option>
+                    <option value="Onyx">Onyx</option>
+                    <option value="Nemesis">Nemesis</option>
+                    <option value="Archnemesis">Archnemesis</option>
+                </select>
+            </div>
         </div>
 
         <div class="popup-field">
@@ -182,6 +273,17 @@
 </div>
 
 <script>
+// Winrate Seçeneklerini 100%'den 0%'e Kadar Doldurma
+const winrateSelect = document.getElementById('popWinrate');
+for (let i = 100; i >= 0; i--) {
+    const opt = document.createElement('option');
+    opt.value = i;
+    opt.innerText = i + '%';
+    winrateSelect.appendChild(opt);
+}
+// Varsayılan olarak %50 seçili gelsin
+winrateSelect.value = "50";
+
 fetch('https://discord.com/api/guilds/1513976181056082061/widget.json')
     .then(response => response.json())
     .then(data => { document.getElementById('navActive').innerText = 'Active: ' + data.presence_count; })
@@ -192,53 +294,63 @@ const annTextContent = "🚀 v0.040 Update<br>✅ Added Clan Application popup f
 const translations = {
     en: { 
         navHome: "Home", navStatus: "Clan Status", navJoinUs: "Apply to Clan", navDev: "Developers", navAnn: "Announcements", navAbout: "About Us", navActive: "Active", recruiting: "🟢 Recruiting Now", title: "XRC | Rivals Clan", subtitle: "Official Rivals Clan Community", desc: "Join XRC and become part of our growing Rivals community.", joinBtn: "Join Discord", devTitle: "Developers", ownerRole: "Owner & Founder", annTitle: "Announcements", annText: annTextContent, aboutTitle: "About Us", aboutText: "XRC is a competitive Rivals clan focused on teamwork, activity, and improvement.<br><br>Our goal is to build a friendly but skilled community where players can improve together, participate in clan events, and represent XRC with pride.<br><br>Founded in 2026.", statusTitle: "Clan Status", statusText: "🟢 Training & Active", footerText: "&copy; 2026 XRC | Rivals Clan. All rights reserved.", optDark: "Dark", optLight: "Light", optMidnight: "Midnight", optSkyblue: "Sky Blue", optPink: "Pink", optYellow: "Yellow",
-        popTitle: "Apply to XRC", lblWinrate: "Win Rate", optWinHigh: "50% or More (50%+)", optWinLow: "Less than 50% (<50%)", lblRank: "Rank", lblLevel: "Level", popBtn: "Check Eligibility",
-        msgSuccess: "You are absolutely accepted! You can join our server from here.", msgMaybe: "You might be accepted! Join our community to try your chance.", msgFail: "We are sorry, we cannot accept you as you don't meet our criteria."
+        popTitle: "Apply to XRC", lblWinrate: "Win Rate", lblRank: "Rank", lblLevel: "Level", popBtn: "Check Eligibility", notchApplyBtn: "Apply to Clan",
+        msgSuccess: "You are absolutely accepted! You can join our server from here.", msgMaybe: "You might be accepted! Join our community to try your chance.", msgFail: "We are sorry, we cannot accept you as you don't meet our criteria.",
+        errInvalidLevel: "Please enter a valid level!", errLying: "Invalid level! You are lying about your level."
     },
     tr: { 
         navHome: "Ana Sayfa", navStatus: "Klan Durumu", navJoinUs: "Klana Başvur", navDev: "Geliştiriciler", navAnn: "Duyurular", navAbout: "Hakkımızda", navActive: "Aktif", recruiting: "🟢 Alımlar Açık", title: "XRC | Rivals Klanı", subtitle: "Resmi Rivals Klan Topluluğu", desc: "XRC'ye katıl ve büyüyen Rivals topluluğumuzun bir parçası ol.", joinBtn: "Discord'a Katıl", devTitle: "Geliştiriciler", ownerRole: "Kurucu ve Sahip", annTitle: "Duyurular", annText: "🚀 v0.040 Güncellemesi<br>✅ Klana Başvuru popup formu eklendi<br>✅ Otomatik alım kontrol algoritması eklendi (Winrate, Rank ve Level kontrolü)<br>✅ Başvuru süreci için çoklu dil çevirileri eklendi", aboutTitle: "Hakkımızda", aboutText: "XRC, takım çalışmasına, aktiviteye ve gelişime odaklanmış rekabetçi bir Rivals klanıdır.<br><br>Amacımız, oyuncuların birlikte gelişebileceği, klan etkinliklerine katılabileceği ve XRC'yi gururla temsil edebileceği arkadaş canlısı ama yetenekli bir topluluk oluşturmaktır.<br><br>2026 yılında kuruldu.", statusTitle: "Klan Durumu", statusText: "🟢 Antrenman ve Aktif", footerText: "&copy; 2026 XRC | Rivals Klanı. Tüm hakları saklıdır.", optDark: "Koyu", optLight: "Açık", optMidnight: "Gece Yarısı", optSkyblue: "Gök Mavisi", optPink: "Pembe", optYellow: "Sarı",
-        popTitle: "XRC Başvuru Formu", lblWinrate: "Kazanma Oranı (Win Rate)", optWinHigh: "%50 veya Daha Fazlası (50%+)", optWinLow: "%50'den Az (<50%)", lblRank: "Rütbe (Rank)", lblLevel: "Seviye (Level)", popBtn: "Katılabilirlik Kontrolü",
-        msgSuccess: "Kesinlikle alındın! Buradan sunucumuza katılabilirsin.", msgMaybe: "Alınabilirsin! Yine de şansını denemek için topluluğumuza katılabilirsin.", msgFail: "Üzgünüz, kriterleri tam karşılayamadığın için seni şu an aramıza alamayız."
+        popTitle: "XRC Başvuru Formu", lblWinrate: "Kazanma Oranı (Win Rate)", lblRank: "Rütbe (Rank)", lblLevel: "Seviye (Level)", popBtn: "Katılabilirlik Kontrolü", notchApplyBtn: "Klana Başvur",
+        msgSuccess: "Kesinlikle alındın! Buradan sunucumuza katılabilirsin.", msgMaybe: "Alınabilirsin! Yine de şansını denemek için topluluğumuza katılabilirsin.", msgFail: "Üzgünüz, kriterleri tam karşılayamadığın için seni şu an aramıza alamayız.",
+        errInvalidLevel: "Lütfen geçerli bir seviye girin!", errLying: "Geçersiz seviye! Seviyeniz hakkında yalan söylüyorsunuz."
     },
     fr: { 
         navHome: "Accueil", navStatus: "État du Clan", navJoinUs: "Postuler", navDev: "Développeurs", navAnn: "Annonces", navAbout: "À Propos", navActive: "Actif", recruiting: "🟢 Recrutement Ouvert", title: "XRC | Rivals Clan", subtitle: "Communauté Officielle Rivals Clan", desc: "Rejoignez XRC et faites partie de notre communauté Rivals.", joinBtn: "Rejoindre Discord", devTitle: "Développeurs", ownerRole: "Fondateur et Propriétaire", annTitle: "Annonces", annText: "🚀 Mise à jour v0.040<br>✅ Formulaire popup de candidature ajouté<br>✅ Algorithme de recrutement automatisé<br>✅ Traductions multilingues ajoutées", aboutTitle: "À Propos", aboutText: "XRC est un clan Rivals compétitif axé sur le travail d'équipe, l'activité et l'amélioration.<br><br>Notre objectif est de bâtir une communauté amicale mais qualifiée où les joueurs peuvent s'améliorer ensemble, participer à des événements de clan et représenter XRC avec fierté.<br><br>Fondé en 2026.", statusTitle: "État du Clan", statusText: "🟢 Entraînement et Actif", footerText: "&copy; 2026 XRC | Rivals Clan. Tous droits réservés.", optDark: "Sombre", optLight: "Clair", optMidnight: "Minuit", optSkyblue: "Bleu Ciel", optPink: "Rose", optYellow: "Jaune",
-        popTitle: "Postuler à XRC", lblWinrate: "Taux de Victoire", optWinHigh: "50% ou plus (50%+)", optWinLow: "Moins de 50% (<50%)", lblRank: "Rang", lblLevel: "Niveau", popBtn: "Vérifier l'éligibilité",
-        msgSuccess: "Tu es absolument accepté ! Rejoins notre serveur ici.", msgMaybe: "Tu pourrais être accepté ! Tente ta chance en rejoignant notre communauté.", msgFail: "Désolé, tu ne remplis pas nos critères pour le moment."
+        popTitle: "Postuler à XRC", lblWinrate: "Taux de Victoire", lblRank: "Rang", lblLevel: "Niveau", popBtn: "Vérifier l'éligibilité", notchApplyBtn: "Postuler",
+        msgSuccess: "Tu es absolument accepté ! Rejoins notre serveur ici.", msgMaybe: "Tu pourrais être accepté ! Tente ta chance en rejoignant notre communauté.", msgFail: "Désolé, tu ne remplis pas nos critères pour le moment.",
+        errInvalidLevel: "Veuillez entrer un niveau valide !", errLying: "Niveau invalide ! Vous mentez sur votre niveau."
     },
     de: { 
-        navHome: "Startseite", navStatus: "Clan-Status", navJoinUs: "Bewerben", navDev: "Entwickler", navAnn: "Ankündigungen", navAbout: "Über Uns", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.040 Update<br>✅ Bewerbungs-Popup-Formular hinzugefügt<br>✅ Automatisierter Rekrutierungsalgorithmus<br>✅ Mehrsprachige Übersetzungen hinzugefügt", aboutTitle: "Über Uns", aboutText: "XRC is ein kompetitiver Rivals-Clan, der sich auf Teamwork, Aktivität und Verbesserung konzentriert.<br><br>Unser Ziel ist es, eine freundliche, aber qualifizierte Community aufzubauen, in der sich Spieler gemeinsam verbessern, an Clan-Events teilnehmen und XRC mit Stolz repräsentieren können.<br><br>Gegründet im Jahr 2026.", statusTitle: "Clan-Status", statusText: "🟢 Training und Aktiv", footerText: "&copy; 2026 XRC | Rivals Clan. Alle Rechte vorbehalten.", optDark: "Dunkel", optLight: "Hell", optMidnight: "Mitternacht", optSkyblue: "Himmelblau", optPink: "Rosa", optYellow: "Gelb",
-        popTitle: "Bewerben bei XRC", lblWinrate: "Winrate", optWinHigh: "50% oder mehr (50%+)", optWinLow: "Weniger als 50% (<50%)", lblRank: "Rang", lblLevel: "Level", popBtn: "Berechtigung prüfen",
-        msgSuccess: "Du bist absolut angenommen! Tritt unserem Server hier bei.", msgMaybe: "Du könntest angenommen werden! Tritt bei, um dein Glück zu versuchen.", msgFail: "Tut uns leid, du erfüllst unsere Kriterien derzeit nicht."
+        navHome: "Startseite", navStatus: "Clan-Status", navJoinUs: "Bewerben", navDev: "Entwickler", navAnn: "Ankündigungen", navAbout: "Über Uns", navActive: "Aktiv", recruiting: "🟢 Rekrutierung Offen", title: "XRC | Rivals Clan", subtitle: "Offizielle Rivals Clan Community", desc: "Tritt XRC bei und werde Teil unserer wachsenden Rivals Community.", joinBtn: "Discord Beitreten", devTitle: "Entwickler", ownerRole: "Gründer und Besitzer", annTitle: "Ankündigungen", annText: "🚀 v0.040 Update<br>✅ Bewerbungs-Popup-Formular hinzugefügt<br>✅ Automatisierter Rekrutierungsalgorithmus<br>✅ Mehrsprachige Übersetzungen hinzugefügt", aboutTitle: "Über Uns", aboutText: "XRC ist ein kompetitiver Rivals-Clan, der sich auf Teamwork, Aktivität und Verbesserung konzentriert.<br><br>Unser Ziel ist es, eine freundliche, aber qualifizierte Community aufzubauen, in der sich Spieler gemeinsam verbessern, an Clan-Events teilnehmen und XRC mit Stolz repräsentieren können.<br><br>Gegründet im Jahr 2026.", statusTitle: "Clan-Status", statusText: "🟢 Training und Aktiv", footerText: "&copy; 2026 XRC | Rivals Clan. Alle Rechte vorbehalten.", optDark: "Dunkel", optLight: "Hell", optMidnight: "Mitternacht", optSkyblue: "Himmelblau", optPink: "Rosa", optYellow: "Gelb",
+        popTitle: "Bewerben bei XRC", lblWinrate: "Winrate", lblRank: "Rang", lblLevel: "Level", popBtn: "Berechtigung prüfen", notchApplyBtn: "Bewerben",
+        msgSuccess: "Du bist absolut angenommen! Tritt unserem Server hier bei.", msgMaybe: "Du könntest angenommen werden! Tritt bei, um dein Glück zu versuchen.", msgFail: "Tut uns leid, du erfüllst unsere Kriterien derzeit nicht.",
+        errInvalidLevel: "Bitte geben Sie eine gültige Ebene ein!", errLying: "Ungültiges Level! Sie lügen bezüglich Ihres Levels."
     },
     es: { 
         navHome: "Inicio", navStatus: "Estado del Clan", navJoinUs: "Postularse", navDev: "Desarrolladores", navAnn: "Anuncios", navAbout: "Sobre nosotros", navActive: "Activo", recruiting: "🟢 Reclutamiento Abierto", title: "XRC | Rivals Clan", subtitle: "Comunidad Oficial de Rivals Clan", desc: "Únete a XRC y forma parte de nuestra creciente comunidad Rivals.", joinBtn: "Unirse a Discord", devTitle: "Desarrolladores", ownerRole: "Propietario y Fundador", annTitle: "Anuncios", annText: "🚀 Actualización v0.040<br>✅ Formulario de postulación añadido<br>✅ Algoritmo de reclutamiento automático<br>✅ Traducciones añadidas", aboutTitle: "Sobre nosotros", aboutText: "XRC es un clan competitivo de Rivals enfocado en el trabajo en equipo, la actividad y la mejora.<br><br>Nuestro objetivo es construir una comunidad amigable pero calificada donde los jugadores puedan mejorar juntos, participar en eventos del clan y representar a XRC con orgullo.<br><br>Fundado en 2026.", statusTitle: "Estado del Clan", statusText: "🟢 Entrenamiento y Activo", footerText: "&copy; 2026 XRC | Rivals Clan. Todos los derechos reservados.", optDark: "Oscuro", optLight: "Claro", optMidnight: "Medianoche", optSkyblue: "Azul Cielo", optPink: "Rosa", optYellow: "Amarillo",
-        popTitle: "Postularse a XRC", lblWinrate: "Win Rate", optWinHigh: "50% o más (50%+)", optWinLow: "Menos de 50% (<50%)", lblRank: "Rango", lblLevel: "Nivel", popBtn: "Comprobar Elegibilidad",
-        msgSuccess: "¡Estás absolutamente aceptado! Únete a nuestro servidor aquí.", msgMaybe: "¡Podrías ser aceptado! Únete a la comunidad para probar tu suerte.", msgFail: "Lo sentimos, no cumples con los criterios para unirte en este momento."
+        popTitle: "Postularse a XRC", lblWinrate: "Win Rate", lblRank: "Rango", lblLevel: "Nivel", popBtn: "Comprobar Elegibilidad", notchApplyBtn: "Postularse",
+        msgSuccess: "¡Estás absolutamente aceptado! Únete a nuestro servidor aquí.", msgMaybe: "¡Podrías ser aceptado! Únete a la comunidad para probar tu suerte.", msgFail: "Lo sentimos, no cumples con los criterios para unirte en este momento.",
+        errInvalidLevel: "¡Por favor introduce un nivel válido!", errLying: "¡Nivel no válido! Estás mintiendo sobre tu nivel."
     },
     it: { 
         navHome: "Home", navStatus: "Stato del Clan", navJoinUs: "Candidati", navDev: "Sviluppatori", navAnn: "Annunci", navAbout: "Chi Siamo", navActive: "Attivo", recruiting: "🟢 Reclutamento Aperto", title: "XRC | Rivals Clan", subtitle: "Community Ufficiale Rivals Clan", desc: "Unisciti a XRC e diventa parte della nostra community in crescita.", joinBtn: "Unisciti a Discord", devTitle: "Sviluppatori", ownerRole: "Proprietario e Fondatore", annTitle: "Annunci", annText: "🚀 Aggiornamento v0.040<br>✅ Modulo popup candidatura aggiunto<br>✅ Algoritmo di reclutamento automatico<br>✅ Traduzioni aggiunte", aboutTitle: "Chi Siamo", aboutText: "XRC è un clan competitivo di Rivals focalizzato sul lavoro di squadra, l'attività e il miglioramento.<br><br>Il nostro obiettivo è costruire una community amichevole ma qualificata dove i giocatori possano migliorare insieme, partecipare agli eventi del clan e rappresentare XRC con orgoglio.<br><br>Fondato nel 2026.", statusTitle: "Stato del Clan", statusText: "🟢 Allenamento e Attivo", footerText: "&copy; 2026 XRC | Rivals Clan. Tutti i diritti riservati.", optDark: "Scuro", optLight: "Chiaro", optMidnight: "Mezzanotte", optSkyblue: "Celeste", optPink: "Rosa", optYellow: "Giallo",
-        popTitle: "Candidati a XRC", lblWinrate: "Win Rate", optWinHigh: "50% o più (50%+)", optWinLow: "Meno di 50% (<50%)", lblRank: "Grado", lblLevel: "Livello", popBtn: "Verifica Idoneità",
-        msgSuccess: "Sei assolutamente accettato! Entra nel nostro server da qui.", msgMaybe: "Potresti essere accettato! Unisciti per tentare la fortuna.", msgFail: "Ci dispiace, al momento non soddisfi i criteri richiesti."
+        popTitle: "Candidati a XRC", lblWinrate: "Win Rate", lblRank: "Grado", lblLevel: "Livello", popBtn: "Verifica Idoneità", notchApplyBtn: "Candidati",
+        msgSuccess: "Sei assolutamente accettato! Entra nel nostro server da qui.", msgMaybe: "Potresti essere accettato! Unisciti per tentare la fortuna.", msgFail: "Ci dispiace, al momento non soddisfi i criteri richiesti.",
+        errInvalidLevel: "Si prega di inserire un livello valido!", errLying: "Livello non valido! Stai mentendo sul tuo livello."
     },
     pt: { 
         navHome: "Início", navStatus: "Status do Clã", navJoinUs: "Candidatar-se", navDev: "Desenvolvedores", navAnn: "Anúncios", navAbout: "Sobre Nós", navActive: "Ativo", recruiting: "🟢 Recrutamento Aberto", title: "XRC | Rivals Clan", subtitle: "Comunidade Oficial Rivals Clan", desc: "Junte-se ao XRC e faça parte da nossa comunidade Rivals em crescimento.", joinBtn: "Entrar no Discord", devTitle: "Desenvolvedores", ownerRole: "Proprietário e Fundador", annTitle: "Anúncios", annText: "🚀 Atualização v0.040<br>✅ Formulário popup de candidatura adicionado<br>✅ Algoritmo de recrutamento automático<br>✅ Traduções adicionadas", aboutTitle: "Sobre Nós", aboutText: "O XRC é um clã competitivo de Rivals focado em trabalho em equipe, atividade e melhoria.<br><br>Nosso objetivo é construir uma comunidade amigável e qualificada, onde os jogadores possam melhorar juntos, participar de eventos do clã e representar o XRC com orgulho.<br><br>Fundado em 2026.", statusTitle: "Status do Clã", statusText: "🟢 Treinamento e Ativo", footerText: "&copy; 2026 XRC | Rivals Clan. Todos os direitos reservados.", optDark: "Escuro", optLight: "Claro", optMidnight: "Meia-noite", optSkyblue: "Azul Céu", optPink: "Rosa", optYellow: "Amarelo",
-        popTitle: "Candidatar-se ao XRC", lblWinrate: "Taxa de Vitória", optWinHigh: "50% ou mais (50%+)", optWinLow: "Menos de 50% (<50%)", lblRank: "Rank", lblLevel: "Nível", popBtn: "Verificar Elegibilidade",
-        msgSuccess: "Você foi absolutamente aceito! Entre no nosso servidor por aqui.", msgMaybe: "Você pode ser aceito! Entre para tentar a sua sorte.", msgFail: "Desculpe, você não atende aos nossos critérios no momento."
+        popTitle: "Candidatar-se ao XRC", lblWinrate: "Taxa de Vitória", lblRank: "Rank", lblLevel: "Nível", popBtn: "Verificar Elegibilidade", notchApplyBtn: "Candidatar-se",
+        msgSuccess: "Você foi absolutamente aceito! Entre no nosso servidor por aqui.", msgMaybe: "Você pode ser aceito! Entre para tentar a sua sorte.", msgFail: "Desculpe, você não atende aos nossos critérios no momento.",
+        errInvalidLevel: "Por favor, insira um nível válido!", errLying: "Nível inválido! Você está mentindo sobre o seu nível."
     },
     ru: { 
         navHome: "Главная", navStatus: "Статус Клана", navJoinUs: "Вступить", navDev: "Разработчики", navAnn: "Объявления", navAbout: "О Нас", navActive: "Активен", recruiting: "🟢 Набор Открыт", title: "XRC | Rivals Clan", subtitle: "Официальное сообщество Rivals Clan", desc: "Присоединяйтесь к XRC и станьте частью нашего растущего сообщества Rivals.", joinBtn: "Присоединиться к Discord", devTitle: "Разработчики", ownerRole: "Владелец и Основатель", annTitle: "Объявления", annText: "🚀 Обновление v0.040<br>✅ Добавлено всплывающее окно заявки в клан<br>✅ Добавлен алгоритм автоматического набора<br>✅ Добавлены переводы для процесса подачи заявки", aboutTitle: "О Нас", aboutText: "XRC — это соревновательный клан Rivals, сосредоточенный на командной работе, активности и улучшении навыков.<br><br>Наша цель — создать дружелюбное, но квалифицированное сообщество, где игроки могут совершенствоваться вместе, участвовать в событиях клана и с гордостью представлять XRC.<br><br>Основан в 2026 году.", statusTitle: "Статус Клана", statusText: "🟢 Тренировка и Активен", footerText: "&copy; 2026 XRC | Rivals Clan. Все права защищены.", optDark: "Темный", optLight: "Светлый", optMidnight: "Полночь", optSkyblue: "Небесно-голубой", optPink: "Розовый", optYellow: "Желтый",
-        popTitle: "Вступить в XRC", lblWinrate: "Процент побед", optWinHigh: "50% или больше (50%+)", optWinLow: "Меньше 50% (<50%)", lblRank: "Ранг", lblLevel: "Уровень", popBtn: "Проверить пригодность",
-        msgSuccess: "Вы абсолютно приняты! Вы можете присоединиться к серверу здесь.", msgMaybe: "Возможно, вас примут! Присоединяйтесь, чтобы попытать удачу.", msgFail: "К сожалению, вы пока не соответствуете нашим критериям."
+        popTitle: "Вступить в XRC", lblWinrate: "Процент побед", lblRank: "Ранг", lblLevel: "Уровень", popBtn: "Проверить пригодность", notchApplyBtn: "Вступить",
+        msgSuccess: "Вы абсолютно приняты! Вы можете присоединиться к серверу здесь.", msgMaybe: "Возможно, вас примут! Присоединяйтесь, чтобы попытать удачу.", msgFail: "К сожалению, вы пока не соответствуете нашим критериям.",
+        errInvalidLevel: "Пожалуйста, введите корректный уровень!", errLying: "Недопустимый уровень! Вы врете о своем уровне."
     },
     ja: { 
         navHome: "ホーム", navStatus: "クラン状況", navJoinUs: "入隊申請", navDev: "開発者", navAnn: "お知らせ", navAbout: "私たちについて", navActive: "アクティブ", recruiting: "🟢 メンバー募集中", title: "XRC | Rivals Clan", subtitle: "公式Rivalsクランコミュニティ", desc: "XRCに参加して、成長するRivalsコミュニティの一員になりましょう。", joinBtn: "Discordに参加", devTitle: "開発者", ownerRole: "オーナー兼創設者", annTitle: "お知らせ", annText: "🚀 v0.040アップデート<br>✅ 入隊申請ポップアップを追加<br>✅ 自動選考アルゴリズムを追加<br>✅ 申請プロセスの多言語翻訳を追加", aboutTitle: "私たちについて", aboutText: "XRCは、チームワーク、活動性、...<br><br>2026年設立。", statusTitle: "クラン状況", statusText: "🟢 トレーニング中・アクティブ", footerText: "&copy; 2026 XRC | Rivals Clan. 無断転載を禁じます。", optDark: "ダーク", optLight: "ライト", optMidnight: "ミッドナイト", optSkyblue: "スカイブルー", optPink: "ピンク", optYellow: "イエロー",
-        popTitle: "XRCに入隊申請", lblWinrate: "勝率", optWinHigh: "50%以上 (50%+)", optWinLow: "50%未満 (<50%)", lblRank: "ランク", lblLevel: "レベル", popBtn: "参加資格をチェック",
-        msgSuccess: "合格です！こちらからサーバーに参加してください。", msgMaybe: "合格の可能性があります！参加してチャンスを試してみましょう。", msgFail: "申し訳ありません。現時点では条件を満たしていません。"
+        popTitle: "XRCに入隊申請", lblWinrate: "勝率", lblRank: "ランク", lblLevel: "レベル", popBtn: "参加資格をチェック", notchApplyBtn: "入隊申請",
+        msgSuccess: "合格です！こちらからサーバーに参加してください。", msgMaybe: "合格の可能性があります！参加してチャンスを試してみましょう。", msgFail: "申し訳ありません。現時点では条件を満たしていません。",
+        errInvalidLevel: "有効なレベルを入力してください！", errLying: "無効なレベルです！レベルについて嘘をついています。"
     },
     zh: { 
         navHome: "首页", navStatus: "部落状态", navJoinUs: "申请加入", navDev: "开发者", navAnn: "公告", navActive: "活跃", recruiting: "🟢 正在招募", title: "XRC | Rivals Clan", subtitle: "官方Rivals部落社区", desc: "加入XRC，成为我们不断壮大的Rivals社区的一员。", joinBtn: "加入Discord", devTitle: "开发者", ownerRole: "创始人兼所有者", annTitle: "公告", annText: "🚀 v0.040更新<br>✅ 新增申请加入弹窗表单<br>✅ 新增自动招募筛选算法<br>✅ 增加招募申请的多语言翻译", aboutTitle: "关于我们", aboutText: "XRC是一个竞争性的Rivals部落，专注于团队合作、活动和技能提升。<br><br>成立于2026年。", statusTitle: "部落状态", statusText: "🟢 训练中且活跃", footerText: "&copy; 2026 XRC | Rivals Clan. 版权所有。", optDark: "深色", optLight: "浅色", optMidnight: "午夜", optSkyblue: "天蓝", optPink: "粉红", optYellow: "黄色",
-        popTitle: "申请加入 XRC", lblWinrate: "胜率", optWinHigh: "50%或以上 (50%+)", optWinLow: "低于50% (<50%)", lblRank: "段位", lblLevel: "等级", popBtn: "检查是否符合资格",
-        msgSuccess: "你完全符合条件！从这里加入我们的服务器吧。", msgMaybe: "你可能被录取！加入社区来试试你的运气吧。", msgFail: "很抱歉，你目前未达到我们的招募标准。"
+        popTitle: "申请加入 XRC", lblWinrate: "胜率", lblRank: "段位", lblLevel: "等级", popBtn: "检查是否符合资格", notchApplyBtn: "申请加入",
+        msgSuccess: "你完全符合条件！从这里加入我们的服务器吧。", msgMaybe: "你可能被录取！加入社区来试试你的运气吧。", msgFail: "很抱歉，你目前未达到我们的招募标准。",
+        errInvalidLevel: "请输入有效的等级！", errLying: "等级无效！你在等级上撒谎了。"
     }
 };
 
@@ -255,14 +367,50 @@ function changeLang(lang) {
             document.getElementById(id).innerHTML = t[id]; 
         }
     }
-    // Temizleme: Eğer popup açıksa sonuç kutusunu sıfırla
     document.getElementById('resultBox').style.display = "none";
     document.getElementById('popJoinBtn').style.display = "none";
+}
+
+function updateThemeGlow(theme) {
+    const root = document.documentElement;
+    let recruitingNokta = "🟢";
+    let statusNokta = "🟢";
+
+    if (theme === 'dark') {
+        root.style.setProperty('--accent-green', '#71ff9b');
+        root.style.setProperty('--glow-color', 'rgba(113, 255, 155, 0.4)');
+    } else {
+        // Diğer temalarda mavi glow ve mavi daire emojisi aktif olur
+        root.style.setProperty('--accent-green', '#007bff');
+        root.style.setProperty('--glow-color', 'rgba(0, 123, 255, 0.4)');
+        recruitingNokta = "🔵";
+        statusNokta = "🔵";
+    }
+
+    // Recruiting Now badge güncelleme
+    const badge = document.getElementById('recruiting');
+    const statusText = document.getElementById('statusText');
+    const trans = translations[currentLang];
+
+    if (theme === 'dark') {
+        badge.innerHTML = trans.recruiting;
+        statusText.innerHTML = trans.statusText;
+    } else {
+        badge.innerHTML = trans.recruiting.replace("🟢", "🔵");
+        statusText.innerHTML = trans.statusText.replace("🟢", "🔵");
+    }
 }
 
 function changeTheme(theme){
     document.body.classList.remove('light-mode','midnight-mode','skyblue-mode','pink-mode','yellow-mode');
     if(theme !== 'dark') document.body.classList.add(theme + '-mode');
+    updateThemeGlow(theme);
+}
+
+function updateRankIcon(rankName) {
+    const iconPreview = document.getElementById('rankIconPreview');
+    // Dosya isimleriyle tam uyuşması için ilk harfi büyük formatta çağırıyoruz
+    iconPreview.src = rankName + '.png';
 }
 
 /* Popup Fonksiyonları */
@@ -272,6 +420,9 @@ function openPopup(e) {
     document.getElementById('resultBox').style.display = "none";
     document.getElementById('popJoinBtn').style.display = "none";
     document.getElementById('popLevel').value = "";
+    // İkonu Bronze ile başlat
+    document.getElementById('popRank').value = "Bronze";
+    updateRankIcon("Bronze");
 }
 
 function closePopup(e) {
@@ -281,22 +432,28 @@ function closePopup(e) {
 }
 
 function checkEligibility() {
-    const winrate = document.getElementById('popWinrate').value;
+    const winrate = parseInt(document.getElementById('popWinrate').value);
     const rank = document.getElementById('popRank').value;
     const levelVal = parseInt(document.getElementById('popLevel').value);
+    const t = translations[currentLang];
     
     if (isNaN(levelVal) || levelVal <= 0) {
-        alert(currentLang === 'tr' ? "Lütfen geçerli bir seviye girin!" : "Please enter a valid level!");
+        alert(t.errInvalidLevel);
+        return;
+    }
+
+    if (levelVal > 1200) {
+        alert(t.errLying);
         return;
     }
 
     let score = 0;
 
-    // 1. Winrate kontrolü
-    if (winrate === "high") score++;
+    // 1. Winrate kontrolü (%50 veya daha fazla)
+    if (winrate >= 50) score++;
 
-    // 2. Rank kontrolü (Bronze ve Silver hariç diğerleri Silver 3'ten büyüktür)
-    const validRanks = ["gold", "platinum", "diamond", "onyx", "nemesis"];
+    // 2. Rank kontrolü (Bronze ve Silver hariç kabul edilir)
+    const validRanks = ["Gold", "Platinum", "Diamond", "Onyx", "Nemesis", "Archnemesis"];
     if (validRanks.includes(rank)) score++;
 
     // 3. Level kontrolü (270+)
@@ -308,20 +465,15 @@ function checkEligibility() {
 
     resultBox.style.display = "block";
 
-    const t = translations[currentLang];
-
     if (score === 3) {
-        // 3 kriter de tuttu
         resultText.innerHTML = t.msgSuccess;
         resultText.style.color = "var(--accent-green)";
         popJoinBtn.style.display = "inline-block";
     } else if (score === 2) {
-        // 2 kriter tuttu, 1'i tutmadı
         resultText.innerHTML = t.msgMaybe;
         resultText.style.color = "#ffaa00";
         popJoinBtn.style.display = "inline-block";
     } else {
-        // Sadece 1'i veya hiçbiri tutmadı
         resultText.innerHTML = t.msgFail;
         resultText.style.color = "#ff4444";
         popJoinBtn.style.display = "none";
